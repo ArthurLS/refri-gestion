@@ -1,9 +1,20 @@
-<p>
-  fridge works!
-</p>
-
 <a routerLink="/"><button>Home</button></a>
 <a routerLink="/fridge"><button>Fridge</button></a>
 <a routerLink="/scanner"><button>Add an Item (scanner)</button></a>
 <a routerLink="/shop-list"><button>Shopping List</button></a>
 <a routerLink="/settings"><button>Account Settings</button></a>
+<div>
+
+  <input [(ngModel)]="search_item" placeholder="Search Item">
+  &nbsp;
+  <mat-form-field>
+    <mat-select placeholder="Favorite food">
+      <mat-option *ngFor="let food of foods" [value]="food.value">
+        {{food.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+
+</div>
