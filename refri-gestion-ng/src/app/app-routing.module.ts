@@ -1,4 +1,4 @@
-import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FridgeComponent } from './fridge/fridge.component';
@@ -7,7 +7,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { ShopListComponent } from './shop-list/shop-list.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
+  {path: '', component: LoginComponent},
   {path: 'fridge', component: FridgeComponent},
   {path: 'scanner', component: ScannerComponent},
   {path: 'settings', component: SettingsComponent},
