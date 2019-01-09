@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
-import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
 import { ScannerComponent } from './scanner/scanner.component';
 import { FridgeComponent } from './fridge/fridge.component';
 import { ShopListComponent } from './shop-list/shop-list.component';
@@ -16,7 +16,7 @@ import { SettingsComponent } from './settings/settings.component';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    LoginComponent,
     ScannerComponent,
     FridgeComponent,
     ShopListComponent,
