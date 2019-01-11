@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthentificationService } from '../services/authentification.service';
 import { User } from '../models/User.model';
 
@@ -20,7 +21,9 @@ export class LogupComponent implements OnInit {
   error_msg: string;
 
 
-  constructor(private authenService: AuthentificationService) {
+  constructor(
+    private authenService: AuthentificationService,
+    private router: Router) {
   }
   
   ngOnInit() {
@@ -44,6 +47,8 @@ export class LogupComponent implements OnInit {
       /* TODO register to the database */
       this.new_user = new User(-1, this.email, this.username, this.password, true);
       this.authenService.logup(this.new_user).subscribe();
+      // go back to home page
+      this.router.navigate(['']);
     }
   }
 }

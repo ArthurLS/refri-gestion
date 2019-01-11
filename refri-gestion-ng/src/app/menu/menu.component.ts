@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthentificationService } from '../services/authentification.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -10,7 +12,11 @@ export class MenuComponent implements OnInit {
   cartPNG: string;
   listPNG: string;
   accountPNG: string;
-  constructor() {
+  is_logged_in: boolean;
+
+  constructor(
+    private authenService: AuthentificationService,
+    private router: Router) {
     this.fridgePNG = "../../assets/img/fridge.png";
     this.cartPNG = "../../assets/img/cart.png";
     this.listPNG = "../../assets/img/list.png";
@@ -18,6 +24,15 @@ export class MenuComponent implements OnInit {
    }
 
   ngOnInit() {
+    // this.is_logged_in = this.authenService.isLoggedIn()
+    this.authenService.isLoggedIn().subscribe(isLoggedIn =>
+      this.is_logged_in = isLoggedIn)
+  }
+
+  logout(){
+    this.authenService.logout();
+    // go back to home page
+    this.router.navigate(['']);
   }
 
 }
