@@ -11,6 +11,9 @@ import { ShopListComponent } from './shop-list/shop-list.component';
 import { SettingsComponent } from './settings/settings.component';
 import { MenuComponent } from './menu/menu.component';
 import { LogupComponent } from './logup/logup.component';
+import { AuthGuard } from './services/auth-guard.service';
+import { AlreadyAuthGuard } from './services/alreadyAuth-guard.service';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { LogupComponent } from './logup/logup.component';
     BrowserAnimationsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    AlreadyAuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

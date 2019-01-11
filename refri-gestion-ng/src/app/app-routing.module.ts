@@ -6,13 +6,15 @@ import { ScannerComponent } from './scanner/scanner.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ShopListComponent } from './shop-list/shop-list.component';
 import { LogupComponent } from './logup/logup.component';
+import { AuthGuard } from './services/auth-guard.service';
+import { AlreadyAuthGuard } from './services/alreadyAuth-guard.service';
 
 const routes: Routes = [
   {path: '', canActivate: [AlreadyAuthGuard], component: LoginComponent},
   {path: 'fridge', canActivate: [AuthGuard] ,component: FridgeComponent},
   {path: 'scanner', canActivate: [AuthGuard] ,component: ScannerComponent},
   {path: 'settings', canActivate: [AuthGuard] ,component: SettingsComponent},
-  {path: 'shop-list', canActivate: [AuthGuard] ,component: ShopListComponent}
+  {path: 'shop-list', canActivate: [AuthGuard] ,component: ShopListComponent},
   {path: 'logup', canActivate: [AlreadyAuthGuard], component: LogupComponent}
 
 ];

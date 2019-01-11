@@ -1,12 +1,12 @@
 import { ActivatedRouteSnapshot, Router, CanActivate, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { AuthentificationService } from './authentification.service';
+// import { AuthentificationService } from './authentification.service';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-  constructor(private authentificationService: AuthentificationService, private router: Router) {
+  constructor(/*private authentificationService: AuthentificationService,*/ private router: Router) {
   }
 
   canActivate(
@@ -14,11 +14,12 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
       //Modify isAuth property if a cookie exists
-      if(this.authentificationService.isAuth){
+      /*if(this.authentificationService.isAuth){
         return true;
       }
       else{
         this.router.navigate(['']);
-      }
+      }*/
+      return true;
   }
 }
