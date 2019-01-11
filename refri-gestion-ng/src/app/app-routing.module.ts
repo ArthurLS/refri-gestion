@@ -7,11 +7,11 @@ import { SettingsComponent } from './settings/settings.component';
 import { ShopListComponent } from './shop-list/shop-list.component';
 
 const routes: Routes = [
-  {path: '', component: LoginComponent},
-  {path: 'fridge', component: FridgeComponent},
-  {path: 'scanner', component: ScannerComponent},
-  {path: 'settings', component: SettingsComponent},
-  {path: 'shop-list', component: ShopListComponent}
+  {path: '', canActivate: [AlreadyAuthGuard], component: LoginComponent},
+  {path: 'fridge', canActivate: [AuthGuard] ,component: FridgeComponent},
+  {path: 'scanner', canActivate: [AuthGuard] ,component: ScannerComponent},
+  {path: 'settings', canActivate: [AuthGuard] ,component: SettingsComponent},
+  {path: 'shop-list', canActivate: [AuthGuard] ,component: ShopListComponent}
 ];
 
 @NgModule({
