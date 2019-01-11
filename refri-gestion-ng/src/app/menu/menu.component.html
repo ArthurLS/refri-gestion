@@ -1,5 +1,18 @@
-<a routerLink="/"><button>Login</button></a>
-<a routerLink="/fridge"><button>Fridge</button></a>
-<a routerLink="/scanner"><button>Add an Item (scanner)</button></a>
-<a routerLink="/shop-list"><button>Shopping List</button></a>
-<a routerLink="/settings"><button>Account Settings</button></a>
+<nav class="navbar navbar-expand navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav nav-fill w-100">
+        <li class="nav-item">
+          <a routerLink="/fridge" class="nav-link"><img [src]="fridgePNG"></a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/scanner" class="nav-link"><img [src]="cartPNG"></a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/shop-list" class="nav-link"><img [src]="listPNG"></a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/settings" class="nav-link"><img [src]="accountPNG"></a>
+        </li>
+      </ul>
+    </div>
+  </nav>

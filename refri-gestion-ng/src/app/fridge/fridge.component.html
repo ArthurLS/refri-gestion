@@ -1,21 +1,37 @@
+<div class="container">
+  <div class="row">
+      <input [(ngModel)]="search_item" placeholder="Search" class="col-6">
 
-<a routerLink="/"><button>Home</button></a>
-<a routerLink="/fridge"><button>Fridge</button></a>
-<a routerLink="/scanner"><button>Add an Item (scanner)</button></a>
-<a routerLink="/shop-list"><button>Shopping List</button></a>
-<a routerLink="/settings"><button>Account Settings</button></a>
-<div>
+      <select placeholder="Tri" class="col-4 offset-2">
+        <option *ngFor="let tri of sorts" [value]="sorts" class="form-control">
+          {{tri}}
+        </option>
+      </select>
 
-    <input placeholder="Search" [(ngModel)]="search_item">
+  </div>
 
-  &nbsp;
+  <div class="row">
+    <table class="table container">
+      <tbody>
+        <tr *ngFor="let prod of foodList" class="row" >
+          <td class="col-md-1 col-2"><img [src]="belloff"></td>
 
-    <select placeholder="Tri">
-      <option *ngFor="let tri of sorts" [value]="sorts">
-        {{tri}}
-      </option>
-    </select>
+          <td class="col-md-4 col-4" style="white-space:nowrap">
+            <div class="row">
+              {{prod.name}}
+            </div>
+            <div class="row">
+              {{prod.expiryDate.toDateString()}}
+            </div>
+          </td>
 
+          <td class="col-md-7 col-6">
+            <input type="number" value={{prod.currentQuantity}}>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <button class="btn btn-primary">Confirmer</button>
 </div>
-  <button mat-button color="primary">Confirmer</button>
-
