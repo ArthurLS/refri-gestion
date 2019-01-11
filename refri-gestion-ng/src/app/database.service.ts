@@ -1,3 +1,5 @@
+import { Observable, of } from 'rxjs';
+import { Product } from './models/Product.model';
 import { Injectable } from '@angular/core';
 import { AngularIndexedDB } from 'angular2-indexeddb';
 
@@ -18,7 +20,7 @@ export class DatabaseService {
       userStore.createIndex("settings", "settings", { unique: false });
 
       let fridgeStore = evt.currentTarget.result.createObjectStore('fridge', { keyPath: "id", autoIncrement: true });
-      fridgeStore.createIndex("product", "product", { unique: false });
+      fridgeStore.createIndex("product", "product", { unique: true });
       fridgeStore.createIndex("InitialQuantity", "InitialQuantity", {unique: false});
       fridgeStore.createIndex("CurrentQuantity", "CurrentQuantity", {unique: false});
       fridgeStore.createIndex("AlertQuantity", "AlertQuantity", {unique: false});
@@ -30,7 +32,7 @@ export class DatabaseService {
 
 
     })
-    console.log(this.db);
+    // console.log(this.db);
   }
 
   addMeasure(addName: string, addAmount: number){
@@ -44,17 +46,30 @@ export class DatabaseService {
     })
   }
 
-  addProduct(addName: string, addQuantity: number, addAlert: number, addDate: string){
+  addProduct(product : Product){
+    var that = this;
+      this.db.openDatabase(1).then(function() {
+        that.db.add('fridge', { product: product.name, InitialQuantity: product.initialQuantity, CurrentQuantity: product.currentQuantity,
+        AlertQuantity: product.alertQuantity, ExpiryDate: product.expiryDate }).then(() => {
+            console.log("added succes");
+          }), (error) => {
+            console.log("added error");
+          }
+      })
+  }
+
+  getProduct(name: string):Observable<Product>{
+    console.log("getting");
+    let result: Product;
     var that = this;
     this.db.openDatabase(1).then(function() {
-      that.db.add('fridge', { product: addName, InitialQuantity: addQuantity, CurrentQuantity: addQuantity,
-      AlertQuantity: addAlert, ExpiryDate: addDate }).then(() => {
-          console.log("added succes");
-        }), (error) => {
-          console.log("added error");
-        }
+      that.db.getByIndex('fridge', 'product', name).then((prod) => {
+        console.log(prod);
+      }, (error) => {console.log("error get product"); console.log(name);});
     })
+    return of(result);
   }
+
 
   addUser(addName: string, addEmail: string, addPassword: string) {
     var that = this;
@@ -69,13 +84,32 @@ export class DatabaseService {
 
   getUserAll() {
     var that = this;
-    this.db.openDatabase(1).then(function() {
+    return this.db.openDatabase(1).then(function() {
       that.db.getAll('user').then((user) => {
           console.log(user);
         }), (error) => {
           console.log("get error");
         }
     })
+  }
+
+  getProductAll(){
+    var that = this;
+    this.db.openDatabase(1).then(function() {
+      that.db.getAll('fridge').then((fridge) => {
+          // console.log(fridge);
+          console.log("fin prod all");
+          return fridge;
+        }), (error) => {
+          console.log("get error");
+        }
+    });
+
+  }
+
+  removeProduct(index: number){
+var that = this;
+
   }
 
   debug(){

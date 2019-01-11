@@ -2,7 +2,7 @@
   <div class="row">
       <input [(ngModel)]="search_item" placeholder="Search" class="col-6">
 
-      <select placeholder="Tri" class="col-4 offset-2">
+      <select placeholder="Tri" class="col-4 offset-2 custom-select">
         <option *ngFor="let tri of sorts" [value]="sorts" class="form-control">
           {{tri}}
         </option>
