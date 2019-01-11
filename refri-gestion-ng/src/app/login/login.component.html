@@ -2,14 +2,17 @@
   <div class="row"> 
     <p>Bienvenue sur Réfri'Gestion</p>
   </div>
-  <div class="row">
-    <input placeholder="Email">
-  </div> 
-  <div class="row">
-    <input placeholder="Mot de passe">
+  <div [hidden]="!has_an_error" class="row">
+    <p>{{error_msg}}</p>
   </div>
   <div class="row">
-    <button type="button" class="btn btn-primary">Valider</button>
+    <input placeholder="Email" [(ngModel)]="email">
+  </div> 
+  <div class="row">
+    <input placeholder="Mot de passe" [(ngModel)]="password">
+  </div>
+  <div class="row">
+    <button type="button" class="btn btn-primary" (click)="login()">Valider</button>
   </div>
   <div class="row">
     <a routerLink="/logup">Créer un compte</a>

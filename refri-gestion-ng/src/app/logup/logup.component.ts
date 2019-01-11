@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthentificationService } from '../services/authentification.service';
+import { User } from '../models/User.model';
+
 /*import { pseudoRandomBytes } from 'crypto';*/
 
 @Component({
@@ -8,15 +11,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LogupComponent implements OnInit {
 
-  email: String;
-  username: String;
-  password: String;
-  confirmed_password: String;
+  new_user: User;
+  email: string;
+  username: string;
+  password: string;
+  confirmed_password: string;
   has_an_error: boolean;
-  error_msg: String;
+  error_msg: string;
 
 
-  constructor() {
+  constructor(private authenService: AuthentificationService) {
   }
   
   ngOnInit() {
@@ -36,8 +40,10 @@ export class LogupComponent implements OnInit {
       this.error_msg = "Mots de passe invalides."
     }else{
       this.has_an_error = false;
-      /* TODO register to the database */
       console.log('email: ', this.email, 'username: ', this.username, 'password: ', this.password, 'confirmed_password', this.confirmed_password);
+      /* TODO register to the database */
+      this.new_user = new User(-1, this.email, this.username, this.password, true);
+      this.authenService.logup(this.new_user).subscribe();
     }
   }
 }
