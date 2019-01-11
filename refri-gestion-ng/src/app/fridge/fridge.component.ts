@@ -1,11 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-
-export interface Food {
-  product: string;
-  date: string;
-  qte: number;
-  alert: boolean;
-}
+import { Component, OnInit, Input } from '@angular/core';
+import { Product } from '../models/Product.model';
+import { Measure } from '../models/Measure.model';
 
 @Component({
   selector: 'app-fridge',
@@ -14,15 +9,27 @@ export interface Food {
 })
 export class FridgeComponent implements OnInit {
 
-  search_item: string;
-  food: Food;
-  foodList: Food[];
+  @Input() search_item: string;
+  food: Product;
+  foodList: Product[];
+
+  date: Date;
+  measure: Measure;
+
+  belloff: string;
 
   sorts = ['AlphaB', 'Quantité', 'Date'];
 
   constructor() {
-    this.food = {product: 'oeuf', date: '12/12/12', qte: 5, alert: true};
-    this.foodList = [this.food];
+    this.belloff = "../../assets/img/belloff.png"
+    this.measure = {id: 5, name: 'qte', graduation: 1};
+
+    this.date = new Date('01/15/2018');
+
+    this.food = {id: 5, name: 'Oeuf', initialQuantity: 6, currentQuantity: 4, alertQuantity: 2,
+     expiryDate: this.date, measure: this.measure};
+
+    this.foodList = [this.food, this.food, this.food];
   }
 
   ngOnInit() {

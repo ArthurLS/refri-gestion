@@ -5,6 +5,7 @@ import { FridgeComponent } from './fridge/fridge.component';
 import { ScannerComponent } from './scanner/scanner.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ShopListComponent } from './shop-list/shop-list.component';
+import { LogupComponent } from './logup/logup.component';
 
 const routes: Routes = [
   {path: '', canActivate: [AlreadyAuthGuard], component: LoginComponent},
@@ -12,6 +13,8 @@ const routes: Routes = [
   {path: 'scanner', canActivate: [AuthGuard] ,component: ScannerComponent},
   {path: 'settings', canActivate: [AuthGuard] ,component: SettingsComponent},
   {path: 'shop-list', canActivate: [AuthGuard] ,component: ShopListComponent}
+  {path: 'logup', canActivate: [AlreadyAuthGuard], component: LogupComponent}
+
 ];
 
 @NgModule({
