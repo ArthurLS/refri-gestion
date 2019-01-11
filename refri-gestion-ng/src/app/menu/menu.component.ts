@@ -6,8 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-
-  constructor() { }
+  fridgePNG: string;
+  cartPNG: string;
+  listPNG: string;
+  accountPNG: string;
+  constructor() {
+    this.fridgePNG = "../../assets/img/fridge.png";
+    this.cartPNG = "../../assets/img/cart.png";
+    this.listPNG = "../../assets/img/list.png";
+    this.accountPNG = "../../assets/img/account.png";
+   }
 
   ngOnInit() {
   }

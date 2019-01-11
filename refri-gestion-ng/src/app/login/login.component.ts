@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthentificationService } from '../services/authentification.service'
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,10 @@ export class LoginComponent implements OnInit {
   has_an_error: boolean;
   error_msg: String;
   
-  constructor() {}
+  constructor(
+    private authenService: AuthentificationService,
+    private router: Router
+    ) {}
 
   ngOnInit() {
   }
@@ -27,6 +32,7 @@ export class LoginComponent implements OnInit {
       this.has_an_error = false;
       /* TODO register to the database */
       console.log('email: ', this.email, 'password: ', this.password);
+      this.router.navigateByUrl('/fridge');
     }
   }
 }

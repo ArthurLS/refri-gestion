@@ -1,3 +1,36 @@
-<p>
-  shop-list works!
-</p>
+<div class="container">
+  <div class="row">
+    <button class="btn btn-danger">Vider la liste</button>
+  </div>
+
+  <div class="row col-md-12 col-12">
+    <table class="table container">
+      <tbody>
+        <tr class="row">
+          <td class="col-md-4 col-4">
+            <input class="col-md-12 col-12 inputPadding" type="text" id="productName" placeholder="Nom...">
+          </td>
+          <td class="col-md-6 col-6">
+            <input class="col-md-6 col-6 inputPadding" type="number" id="productQuantity">
+          </td>
+          <td class="col-md-2 col-2">
+            <button class="btn btn-primary">+</button>
+          </td>
+        </tr>
+        <tr *ngFor="let product of shopList" class="row">
+          <td class="col-md-4 col-4">{{product.name}}</td>
+          <td class="col-md-6 col-6" style="white-space:nowrap">
+            <input class="col-md-6 col-6 inputPadding" type="number" value="{{product.initialQuantity}}"> {{product.measure.name}}
+          </td>
+          <td class="col-md-2 col-2">
+            <button class="btn btn-danger">x</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row">
+    <button class="btn btn-primary">Confirmer vos changements</button>
+  </div>
+</div>
