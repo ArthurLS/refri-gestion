@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { ScannerComponent } from './scanner/scanner.component';
@@ -25,7 +25,11 @@ import { LogupComponent } from './logup/logup.component';
     LogupComponent
   ],
   imports: [
+<<<<<<< HEAD
     NgbModule.forRoot(),
+=======
+    FormsModule,
+>>>>>>> c2b8f77502da4cfb6869f0cc287b306fd6488a59
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule
