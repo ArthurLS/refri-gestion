@@ -25,7 +25,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     // this.is_logged_in = this.authenService.isLoggedIn()
-    this.authenService.isLoggedIn().subscribe(isLoggedIn =>
+    this.authenService.isLoggedObs().subscribe(isLoggedIn =>
       this.is_logged_in = isLoggedIn)
   }
 

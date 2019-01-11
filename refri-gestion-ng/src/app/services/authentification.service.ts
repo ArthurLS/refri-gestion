@@ -11,7 +11,7 @@ export class AuthentificationService {
   private logger =new BehaviorSubject<boolean>(localStorage.getItem('currentUser') != null);
 
   cast_user = this.user.asObservable();
-  
+
   constructor() {}
 
   public login(email: string, password: string){    
@@ -26,8 +26,17 @@ export class AuthentificationService {
     return this.user;
   }
 
-  public isLoggedIn(): Observable<boolean>{
+  /** Asynchronous function to know if the user is connected
+  */
+  public isLoggedObs(): Observable<boolean>{
     return this.logger.asObservable();
+  }
+
+  /** Synchronous function to know if the user is connected,
+   * but prefered the asynchrone version isLoggedObs()
+   */
+  public isLogged():boolean{
+    return localStorage.getItem('currentUser') != null
   }
 
   public logout(): void{
