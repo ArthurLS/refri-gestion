@@ -1,16 +1,17 @@
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 
-
 import { AppComponent } from './app.component';
-import { MaterialModule } from './material/material.module';
 import { LoginComponent } from './login/login.component';
 import { ScannerComponent } from './scanner/scanner.component';
 import { FridgeComponent } from './fridge/fridge.component';
 import { ShopListComponent } from './shop-list/shop-list.component';
 import { SettingsComponent } from './settings/settings.component';
+import { MenuComponent } from './menu/menu.component';
+import { LogupComponent } from './logup/logup.component';
 
 @NgModule({
   declarations: [
@@ -19,12 +20,14 @@ import { SettingsComponent } from './settings/settings.component';
     ScannerComponent,
     FridgeComponent,
     ShopListComponent,
-    SettingsComponent
+    SettingsComponent,
+    MenuComponent,
+    LogupComponent
   ],
   imports: [
+    NgbModule.forRoot(),
     BrowserModule,
     BrowserAnimationsModule,
-    MaterialModule,
     AppRoutingModule
   ],
   providers: [],
