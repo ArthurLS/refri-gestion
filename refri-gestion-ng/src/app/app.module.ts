@@ -25,11 +25,7 @@ import { LogupComponent } from './logup/logup.component';
     LogupComponent
   ],
   imports: [
-<<<<<<< HEAD
-    NgbModule.forRoot(),
-=======
     FormsModule,
->>>>>>> c2b8f77502da4cfb6869f0cc287b306fd6488a59
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule
