@@ -5,16 +5,16 @@
 <a routerLink="/settings"><button>Account Settings</button></a>
 <div>
 
-  <input [(ngModel)]="search_item" placeholder="Search Item">
+    <input placeholder="Search" [(ngModel)]="search_item">
+
   &nbsp;
-  <mat-form-field>
-    <mat-select placeholder="Favorite food">
-      <mat-option *ngFor="let food of foods" [value]="food.value">
-        {{food.viewValue}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
 
-
+    <select placeholder="Tri">
+      <option *ngFor="let tri of sorts" [value]="sorts">
+        {{tri}}
+      </option>
+    </select>
 
 </div>
+  <button mat-button color="primary">Confirmer</button>
+

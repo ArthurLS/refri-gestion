@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 export interface Food {
-  value: string;
-  viewValue: string;
+  product: string;
+  date: string;
+  qte: number;
+  alert: boolean;
 }
 
 @Component({
@@ -13,14 +15,15 @@ export interface Food {
 export class FridgeComponent implements OnInit {
 
   search_item: string;
+  food: Food;
+  foodList: Food[];
 
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'}
-  ];
+  sorts = ['AlphaB', 'Quantité', 'Date'];
 
-  constructor() { }
+  constructor() {
+    this.food = {product: 'oeuf', date: '12/12/12', qte: 5, alert: true};
+    this.foodList = [this.food];
+  }
 
   ngOnInit() {
   }
