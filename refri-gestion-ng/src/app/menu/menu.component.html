@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand navbar-light bg-light">
+<nav [hidden]="!is_logged_in" class="navbar navbar-expand navbar-light bg-light">
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav nav-fill w-100">
         <li class="nav-item">
@@ -12,6 +12,9 @@
         </li>
         <li class="nav-item">
           <a routerLink="/settings" class="nav-link"><img [src]="accountPNG"></a>
+        </li>
+        <li class="nav-item">
+          <a (click)="logout()" class="btn btn-danger">-></a>
         </li>
       </ul>
     </div>

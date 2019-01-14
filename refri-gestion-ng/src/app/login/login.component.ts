@@ -9,10 +9,10 @@ import { AuthentificationService } from '../services/authentification.service'
 })
 export class LoginComponent implements OnInit {
 
-  email: String;
-  password: String;
+  email: string;
+  password: string;
   has_an_error: boolean;
-  error_msg: String;
+  error_msg: string;
   
   constructor(
     private authenService: AuthentificationService,
@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    console.log('email: ', this.email, 'password: ', this.password)
     if(this.email == null || 
       this.password == null){
       this.has_an_error = true;
@@ -32,7 +31,9 @@ export class LoginComponent implements OnInit {
       this.has_an_error = false;
       /* TODO register to the database */
       console.log('email: ', this.email, 'password: ', this.password);
-      this.router.navigateByUrl('/fridge');
+      this.authenService.login(this.email, this.password);
+      // go to fridge
+      this.router.navigate(['fridge']);
     }
   }
 }

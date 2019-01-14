@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Observer } from 'rxjs';
 import { User } from '../models/User.model';
 
 @Injectable({
@@ -8,35 +8,47 @@ import { User } from '../models/User.model';
 
 export class AuthentificationService {
   private user = new BehaviorSubject<User>(new User(-1, '', '','', true))
-  castUser = this.user.asObservable();
+  private logger =new BehaviorSubject<boolean>(localStorage.getItem('currentUser') != null);
 
-  constructor() {
-   }
+  cast_user = this.user.asObservable();
 
-  public login(email: string, password: string){
-    
+  constructor() {}
+
+  public login(email: string, password: string){    
+    // this.changeUser();
+    // localStorage.setItem('currentUser', JSON.stringify(user));
+    localStorage.setItem('currentUser', email);
+    this.logger.next(true);
+    // this.changeIsAuthenticated(true);
   }
 
-  public isAuthenticated():boolean{
-    return localStorage.getItem('authenticated') == 'true' || false;
-  }
-
-  public getPseudo():String{
-    return localStorage.getItem('pseudo');
-  }
-
-  public logup(user: User): Observable<User>{
+  public logup(user: User): Observable<User>{   
     return this.user;
   }
 
-  public logout(callback){
-    const url = '/api/logout';
-    localStorage.setItem('authenticated', 'false');
-    localStorage.removeItem('pseudo');
-    return callback && callback();
+  /** Asynchronous function to know if the user is connected
+  */
+  public isLoggedObs(): Observable<boolean>{
+    return this.logger.asObservable();
   }
 
-  changeUser(newUser){
+  /** Synchronous function to know if the user is connected,
+   * but prefered the asynchrone version isLoggedObs()
+   */
+  public isLogged():boolean{
+    return localStorage.getItem('currentUser') != null
+  }
+
+  public logout(): void{
+    let user: User;
+    user = new User(-1, '', '','', true);
+    this.changeUser(user);
+    localStorage.removeItem('currentUser');
+    this.logger.next(false);
+  }
+
+  changeUser(newUser): void{
     this.user.next(newUser);
   }
+
 }
