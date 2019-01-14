@@ -19,12 +19,12 @@ export class SettingsComponent implements OnInit {
 
     this.date = new Date('01/15/2018');
 
-    this.food = {id: 5, name: 'carote', initialQuantity: 6, currentQuantity: 4, alertQuantity: 2,
+    this.food = {id: 5, name: 'pomme', initialQuantity: 6, currentQuantity: 4, alertQuantity: 2,
      expiryDate: this.date, measure: this.measure, notify: false};
    }
 
   ngOnInit() {
-    this.dbService.addProduct(this.food);
+    // this.dbService.addProduct(this.food);
     // this.dbService.getProductAll().subscribe(fridge => console.log(fridge));
     // this.dbService.getProduct('Oeuf').subscribe);
     console.log(this.dbService.getProductAll());
