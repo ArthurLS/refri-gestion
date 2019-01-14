@@ -9,6 +9,7 @@ export class Product {
     public currentQuantity: number,
     public alertQuantity: number,
     public expiryDate: Date,
-    public measure: Measure
+    public measure: Measure,
+    public notify: boolean
   ) {}
 }
