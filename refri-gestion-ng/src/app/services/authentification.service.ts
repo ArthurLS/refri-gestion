@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, Observer } from 'rxjs';
 import { User } from '../models/User.model';
+import { DatabaseService } from './database.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +13,31 @@ export class AuthentificationService {
 
   cast_user = this.user.asObservable();
 
-  constructor() {}
+  constructor(private databaseService: DatabaseService) {}
 
-  public login(email: string, password: string){    
+  public login(email: string, password: string): boolean{    
     // this.changeUser();
     // localStorage.setItem('currentUser', JSON.stringify(user));
-    localStorage.setItem('currentUser', email);
-    this.logger.next(true);
+    let users = this.databaseService.getUserAll();
+    console.log('users', users);
+    let user = users.filter(user =>{
+      user.email == email && user.password == password}
+    );
+    console.log('user', user);
+    if(user != null){
+      localStorage.setItem('currentUser', email);
+      this.logger.next(true);
+      return true
+    }else{
+      return false
+    }
+
     // this.changeIsAuthenticated(true);
   }
 
-  public logup(user: User): Observable<User>{   
+  public logup(user: User): Observable<User>{
+    // TODO uncomment when the add user take a user.
+    this.databaseService.addUser(user); 
     return this.user;
   }
 

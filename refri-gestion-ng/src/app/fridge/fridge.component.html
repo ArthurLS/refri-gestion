@@ -30,7 +30,7 @@
           </td>
 
           <td class="col-md-7 col-6">
-            <input type="number" value={{prod.currentQuantity}} step={{prod.measure.graduation}}>
+            <input type="number" min="0" value={{prod.currentQuantity}} step={{prod.measure.graduation}}>
             {{prod.measure.name}}
           </td>
         </tr>

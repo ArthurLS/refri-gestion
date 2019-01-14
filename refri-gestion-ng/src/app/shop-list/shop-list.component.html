@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row d-inline">
-    <button class="btn btn-danger float-right my-2" id="empty_list" (click)="emptyList()">Vider la liste</button>
+    <button class="btn btn-danger float-right my-2" (click)="emptyList()">Vider la liste</button>
   </div>
 
   <div class="row col-md-12 col-12">
@@ -11,8 +11,8 @@
             <input class="col-md-12 col-12 inputPadding" type="text" [(ngModel)]="productName" placeholder="Nom...">
           </td>
           <td class="col-md-6 col-6">
-            <input class="col-md-6 col-6 inputPadding" type="number" [(ngModel)]="productQuantity">
-            <select class="col-md-6 col-6 inputPadding" id="selectMeasure" [(ngModel)]="productMeasure">
+            <input class="col-md-6 col-6 inputPadding"  min="0" type="number" [(ngModel)]="productQuantity">
+            <select class="col-md-6 col-6 inputPadding" [(ngModel)]="productMeasure">
               <option *ngFor="let measure of measures" value="{{measure.id}}">{{measure.name}}</option>
             </select>
           </td>

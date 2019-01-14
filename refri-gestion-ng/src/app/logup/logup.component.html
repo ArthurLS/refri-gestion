@@ -12,12 +12,15 @@
       <input placeholder="Nom d'utilisateur" [(ngModel)]="username">
     </div>
     <div class="row">
-      <input placeholder="Mot de passe" [(ngModel)]="password">
+      <input type ="password" placeholder="Mot de passe" [(ngModel)]="password">
     </div>
     <div class="row">
-      <input placeholder="Confirmer mot de passe" [(ngModel)]="confirmed_password">
+      <input type ="password" placeholder="Confirmer mot de passe" [(ngModel)]="confirmed_password">
     </div>
     <div class="row">
         <button type="button" class="btn btn-primary" (click)="logup()">Valider</button>
-      </div>
+    </div>
+    <div>
+      <a routerLink="">Retour</a>
+    </div>
   </div>
