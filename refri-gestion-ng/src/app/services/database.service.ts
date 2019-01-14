@@ -1,5 +1,5 @@
 import { Observable, of } from 'rxjs';
-import { Product } from './models/Product.model';
+import { Product } from '../models/Product.model';
 import { Injectable } from '@angular/core';
 import { AngularIndexedDB } from 'angular2-indexeddb';
 
@@ -10,6 +10,7 @@ export class DatabaseService {
 
 
   private db = new AngularIndexedDB('Database', 1);
+
 
   constructor() {
     this.db.openDatabase(1, (evt) => {
@@ -93,18 +94,22 @@ export class DatabaseService {
     })
   }
 
+  /**
+   * return all products from database
+   */
   getProductAll(){
     var that = this;
+    let products: Array<string> = [];
     this.db.openDatabase(1).then(function() {
       that.db.getAll('fridge').then((fridge) => {
-          // console.log(fridge);
           console.log("fin prod all");
-          return fridge;
+          products.push(...fridge);
         }), (error) => {
           console.log("get error");
         }
     });
 
+    return products;
   }
 
   removeProduct(index: number){
