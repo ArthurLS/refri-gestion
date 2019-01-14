@@ -20,7 +20,7 @@ export class SettingsComponent implements OnInit {
     this.date = new Date('01/15/2018');
 
     this.food = {id: 5, name: 'carote', initialQuantity: 6, currentQuantity: 4, alertQuantity: 2,
-     expiryDate: this.date, measure: this.measure};
+     expiryDate: this.date, measure: this.measure, notify:false};
    }
 
   ngOnInit() {

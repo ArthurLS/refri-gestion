@@ -53,7 +53,7 @@ export class ShopListComponent implements OnInit {
       let m = this.measures.filter(measure => measure.id == this.productMeasure)[0];
 
       let p = {id: 10, name:this.productName,initialQuantity: this.productQuantity, currentQuantity: this.productQuantity,
-      alertQuantity: this.productQuantity/10, expiryDate: null, measure: m};
+      alertQuantity: this.productQuantity/10, expiryDate: null, measure: m, notify: false};
 
       this.shopList.push(p);
       this.productName = "";
