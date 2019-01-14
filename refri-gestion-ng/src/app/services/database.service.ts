@@ -97,9 +97,9 @@ export class DatabaseService {
   /**
    * return all products from database
    */
-  getProductAll(){
+  getProductAll(): Array<Product>{
     var that = this;
-    let products: Array<string> = [];
+    let products: Array<Product> = [];
     this.db.openDatabase(1).then(function() {
       that.db.getAll('fridge').then((fridge) => {
           console.log("fin prod all");
