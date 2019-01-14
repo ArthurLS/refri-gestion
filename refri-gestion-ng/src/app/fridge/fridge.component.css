@@ -2,3 +2,6 @@ img{
   height: 40px;
   width: 40px;
 }
+.green{
+  background: rgba(97, 209, 46, 0.5);
+}
