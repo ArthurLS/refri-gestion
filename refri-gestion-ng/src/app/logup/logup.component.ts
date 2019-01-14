@@ -39,16 +39,18 @@ export class LogupComponent implements OnInit {
       this.password == null ||
       this.confirmed_password == null){
       this.has_an_error = true;
-      this.error_msg = "Champs invalides.";
+      this.error_msg = "Champs vides.";
     }else if(this.password !== this.confirmed_password){
       this.has_an_error = true;
       this.error_msg = "Mots de passe invalides."
+    // TODO check if user already exist
+    //}else if(!this.databaseService.getUser(this.email, this.password) != null){
+    //  this.has_an_error = true;
+    //  this.error_msg = "Champs invalides."
     }else{
       this.has_an_error = false;
       console.log('email: ', this.email, 'username: ', this.username, 'password: ', this.password, 'confirmed_password', this.confirmed_password);
       this.new_user = new User(-1, this.email, this.username, this.password, true);
-      // TODO uncomment when the add user take a user.
-      //this.databaseService.addUser(new_user);
       this.authenService.logup(this.new_user).subscribe();
       // go back to home page
       this.router.navigate(['']);
