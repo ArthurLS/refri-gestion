@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthentificationService } from '../services/authentification.service';
 import { User } from '../models/User.model';
+import { DatabaseService } from '../services/database.service';
 
 /*import { pseudoRandomBytes } from 'crypto';*/
 
@@ -23,6 +24,7 @@ export class LogupComponent implements OnInit {
 
   constructor(
     private authenService: AuthentificationService,
+    private databaseService: DatabaseService,
     private router: Router) {
   }
   
@@ -37,14 +39,17 @@ export class LogupComponent implements OnInit {
       this.password == null ||
       this.confirmed_password == null){
       this.has_an_error = true;
-      this.error_msg = "Champs invalides.";
+      this.error_msg = "Champs vides.";
     }else if(this.password !== this.confirmed_password){
       this.has_an_error = true;
       this.error_msg = "Mots de passe invalides."
+    // TODO check if user already exist
+    //}else if(!this.databaseService.getUser(this.email, this.password) != null){
+    //  this.has_an_error = true;
+    //  this.error_msg = "Champs invalides."
     }else{
       this.has_an_error = false;
       console.log('email: ', this.email, 'username: ', this.username, 'password: ', this.password, 'confirmed_password', this.confirmed_password);
-      /* TODO register to the database */
       this.new_user = new User(-1, this.email, this.username, this.password, true);
       this.authenService.logup(this.new_user).subscribe();
       // go back to home page

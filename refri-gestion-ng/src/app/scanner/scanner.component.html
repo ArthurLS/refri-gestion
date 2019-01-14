@@ -1,3 +1,8 @@
-<p>
-  scanner works!
-</p>
+<div class="row col-md-12 col-12">
+  <input type="text" placeholder="Nom...">
+  <input type="date" placeholder="">
+  <input type="number" min="0" >
+  <select >
+    <option *ngFor="let measure of measures" value=measure.name>{{measure.name}}</option>
+  </select>
+</div>

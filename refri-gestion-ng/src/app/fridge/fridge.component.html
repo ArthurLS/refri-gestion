@@ -31,7 +31,7 @@
           </td>
 
           <td class="col-md-6 col-4">
-            <input class="col-5" type="number" (change)="quantityChange(prod)" [(ngModel)]="prod.currentQuantity" step={{prod.measure.graduation}}>
+            <input class="col-5" type="number" min="0" (change)="quantityChange(prod)" [(ngModel)]="prod.currentQuantity" step={{prod.measure.graduation}}>
             {{prod.measure.name}}
           </td>
           <td class="col-md-2 col-1">
