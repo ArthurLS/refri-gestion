@@ -18,10 +18,10 @@ export class ShopListComponent implements OnInit {
     var measure2 = {id: 4, name: 'L', graduation: 1};
 
     this.shopList.push({id: 6, name:'Lait', initialQuantity:6, currentQuantity:4, alertQuantity:2,
-      expiryDate: new Date(), measure: measure2});
+      expiryDate: new Date(), measure: measure2, notify: true});
 
     this.shopList.push({id: 7, name:'Oeuf', initialQuantity:12, currentQuantity:2, alertQuantity:2,
-      expiryDate: new Date(), measure: measure})
+      expiryDate: new Date(), measure: measure, notify: true})
 
   }
 

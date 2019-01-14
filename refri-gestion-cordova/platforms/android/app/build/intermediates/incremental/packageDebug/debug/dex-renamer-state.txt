@@ -1,0 +1,4 @@
+#Fri Jan 11 18:16:22 CET 2019
+base.0=/home/arthur/Cordova/refri-gestion/refri-gestion-cordova/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex
