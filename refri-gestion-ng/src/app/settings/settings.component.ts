@@ -1,6 +1,6 @@
 import { Measure } from './../models/Measure.model';
 import { Component, OnInit } from '@angular/core';
-import { DatabaseService } from '../database.service';
+import { DatabaseService } from '../services/database.service';
 import { Product } from '../models/Product.model';
 
 @Component({
@@ -19,8 +19,8 @@ export class SettingsComponent implements OnInit {
 
     this.date = new Date('01/15/2018');
 
-    this.food = {id: 5, name: 'carote', initialQuantity: 6, currentQuantity: 4, alertQuantity: 2,
-     expiryDate: this.date, measure: this.measure};
+    this.food = {id: 5, name: 'pomme', initialQuantity: 6, currentQuantity: 4, alertQuantity: 2,
+     expiryDate: this.date, measure: this.measure, notify: false};
    }
 
   ngOnInit() {

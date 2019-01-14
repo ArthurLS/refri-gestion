@@ -10,11 +10,15 @@
 
   </div>
 
-  <div class="row">
+  <div class="row col-12">
+
     <table class="table container">
       <tbody>
         <tr *ngFor="let prod of foodList" class="row" >
-          <td class="col-md-1 col-2"><img [src]="belloff"></td>
+          <td class="col-md-1 col-2">
+              <div *ngIf="prod.notify; else elseBlock"><img [src]="bellon"></div>
+              <ng-template #elseBlock><img [src]="belloff"></ng-template>
+          </td>
 
           <td class="col-md-4 col-4" style="white-space:nowrap">
             <div class="row">
@@ -26,7 +30,8 @@
           </td>
 
           <td class="col-md-7 col-6">
-            <input type="number" min="0" value={{prod.currentQuantity}}>
+            <input type="number" min="0" value={{prod.currentQuantity}} step={{prod.measure.graduation}}>
+            {{prod.measure.name}}
           </td>
         </tr>
       </tbody>
