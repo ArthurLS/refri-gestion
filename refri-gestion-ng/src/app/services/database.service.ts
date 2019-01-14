@@ -11,11 +11,13 @@ import { AngularIndexedDB } from 'angular2-indexeddb';
 export class DatabaseService {
 
 
-  private db = new AngularIndexedDB('Database', 1);
-
+  private db = new AngularIndexedDB('Data', 1);
 
   constructor() {
+
+
     this.db.openDatabase(1, (evt) => {
+
       let userStore = evt.currentTarget.result.createObjectStore('user', { keyPath: "id", autoIncrement: true });
       userStore.createIndex("name", "name", { unique: false });
       userStore.createIndex("email", "email", { unique: true });
@@ -28,17 +30,19 @@ export class DatabaseService {
       fridgeStore.createIndex("CurrentQuantity", "CurrentQuantity", { unique: false });
       fridgeStore.createIndex("AlertQuantity", "AlertQuantity", { unique: false });
       fridgeStore.createIndex("ExpiryDate", "ExpiryDate", { unique: false });
+      fridgeStore.createIndex("Notify", "Notify", {unique: false});
 
       let measureStore = evt.currentTarget.result.createObjectStore('measure', { keyPath: "id", autoIncrement: true });
       measureStore.createIndex("name", "name", { unique: true });
       measureStore.createIndex("amount", "amount", { unique: false });
 
       let shoppingStore = evt.currentTarget.result.createObjectStore('shoppingList', { keyPath: "id", autoIncrement: true });
-      fridgeStore.createIndex("product", "product", { unique: true });
-      fridgeStore.createIndex("InitialQuantity", "InitialQuantity", { unique: false });
-      fridgeStore.createIndex("CurrentQuantity", "CurrentQuantity", { unique: false });
-      fridgeStore.createIndex("AlertQuantity", "AlertQuantity", { unique: false });
-      fridgeStore.createIndex("ExpiryDate", "ExpiryDate", { unique: false });
+      shoppingStore.createIndex("product", "product", { unique: true });
+      shoppingStore.createIndex("InitialQuantity", "InitialQuantity", { unique: false });
+      shoppingStore.createIndex("CurrentQuantity", "CurrentQuantity", { unique: false });
+      shoppingStore.createIndex("AlertQuantity", "AlertQuantity", { unique: false });
+      shoppingStore.createIndex("ExpiryDate", "ExpiryDate", { unique: false });
+      shoppingStore.createIndex("Notify", "Notify", {unique: false});
 
     })
     // console.log(this.db);
@@ -210,4 +214,5 @@ export class DatabaseService {
       that.db.delete('shoppingList', index)
     })
 
+}
 }
