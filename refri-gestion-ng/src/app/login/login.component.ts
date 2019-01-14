@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthentificationService } from '../services/authentification.service'
+import { DatabaseService } from '../database.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
   
   constructor(
     private authenService: AuthentificationService,
-    private router: Router
+    private databaseService: DatabaseService,
+    private router: Router,
     ) {}
 
   ngOnInit() {
@@ -28,8 +30,8 @@ export class LoginComponent implements OnInit {
       this.has_an_error = true;
       this.error_msg = "Champs invalides.";
     }else{
+      // TODO this.database.getUser(this.email, this.password)
       this.has_an_error = false;
-      /* TODO register to the database */
       console.log('email: ', this.email, 'password: ', this.password);
       this.authenService.login(this.email, this.password);
       // go to fridge

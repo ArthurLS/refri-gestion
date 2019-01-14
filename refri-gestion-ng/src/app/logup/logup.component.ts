@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthentificationService } from '../services/authentification.service';
 import { User } from '../models/User.model';
+import { DatabaseService } from '../database.service';
 
 /*import { pseudoRandomBytes } from 'crypto';*/
 
@@ -23,6 +24,7 @@ export class LogupComponent implements OnInit {
 
   constructor(
     private authenService: AuthentificationService,
+    private databaseService: DatabaseService,
     private router: Router) {
   }
   
@@ -44,8 +46,9 @@ export class LogupComponent implements OnInit {
     }else{
       this.has_an_error = false;
       console.log('email: ', this.email, 'username: ', this.username, 'password: ', this.password, 'confirmed_password', this.confirmed_password);
-      /* TODO register to the database */
       this.new_user = new User(-1, this.email, this.username, this.password, true);
+      // TODO uncomment when the add user take a user.
+      //this.databaseService.addUser(new_user);
       this.authenService.logup(this.new_user).subscribe();
       // go back to home page
       this.router.navigate(['']);
