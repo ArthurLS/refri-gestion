@@ -27,7 +27,7 @@ export class SettingsComponent implements OnInit {
     // this.dbService.addProduct(this.food);
     // this.dbService.getProductAll().subscribe(fridge => console.log(fridge));
     // this.dbService.getProduct('Oeuf').subscribe);
-    console.log(this.dbService.getProductAll());
+    console.log(this.dbService.getShoppingAll());
     // this.dbService.getProductAll().then(function(value) {console.log(value);});
   }
 
