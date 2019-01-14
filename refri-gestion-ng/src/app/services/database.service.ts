@@ -11,7 +11,7 @@ import { AngularIndexedDB } from 'angular2-indexeddb';
 export class DatabaseService {
 
 
-  private db = new AngularIndexedDB('myData', 1);
+  private db = new AngularIndexedDB('myDB', 1);
 
   constructor() {
 
@@ -19,39 +19,39 @@ export class DatabaseService {
     this.db.openDatabase(1, (evt) => {
 
       let userStore = evt.currentTarget.result.createObjectStore('user', { keyPath: "id", autoIncrement: true });
-      userStore.createIndex("Name", "Name", { unique: false });
-      userStore.createIndex("Email", "Email", { unique: true });
-      userStore.createIndex("Password", "Password", { unique: false });
-      userStore.createIndex("Settings", "Settings", { unique: false });
+      userStore.createIndex("name", "name", { unique: false });
+      userStore.createIndex("email", "email", { unique: true });
+      userStore.createIndex("password", "password", { unique: false });
+      userStore.createIndex("settings", "settings", { unique: false });
 
       let fridgeStore = evt.currentTarget.result.createObjectStore('fridge', { keyPath: "id", autoIncrement: true });
-      fridgeStore.createIndex("Name", "Name", { unique: false });
-      fridgeStore.createIndex("InitialQuantity", "InitialQuantity", { unique: false });
-      fridgeStore.createIndex("CurrentQuantity", "CurrentQuantity", { unique: false });
-      fridgeStore.createIndex("AlertQuantity", "AlertQuantity", { unique: false });
-      fridgeStore.createIndex("ExpiryDate", "ExpiryDate", { unique: false });
-      fridgeStore.createIndex("Measure", "Measure", {unique: false})
-      fridgeStore.createIndex("Notify", "Notify", {unique: false});
+      fridgeStore.createIndex("name", "name", { unique: false });
+      fridgeStore.createIndex("initialQuantity", "initialQuantity", { unique: false });
+      fridgeStore.createIndex("currentQuantity", "currentQuantity", { unique: false });
+      fridgeStore.createIndex("alertQuantity", "alertQuantity", { unique: false });
+      fridgeStore.createIndex("expiryDate", "expiryDate", { unique: false });
+      fridgeStore.createIndex("measure", "measure", {unique: false})
+      fridgeStore.createIndex("notify", "notify", {unique: false});
 
       let measureStore = evt.currentTarget.result.createObjectStore('measure', { keyPath: "id", autoIncrement: true });
-      measureStore.createIndex("Name", "Name", { unique: false });
-      measureStore.createIndex("Amount", "Amount", { unique: false });
+      measureStore.createIndex("name", "name", { unique: false });
+      measureStore.createIndex("graduation", "graduation", { unique: false });
 
       let shoppingStore = evt.currentTarget.result.createObjectStore('shoppingList', { keyPath: "id", autoIncrement: true });
-      shoppingStore.createIndex("Name", "Name", { unique: false });
-      shoppingStore.createIndex("InitialQuantity", "InitialQuantity", { unique: false });
-      shoppingStore.createIndex("CurrentQuantity", "CurrentQuantity", { unique: false });
-      shoppingStore.createIndex("AlertQuantity", "AlertQuantity", { unique: false });
-      shoppingStore.createIndex("ExpiryDate", "ExpiryDate", { unique: false });
-      fridgeStore.createIndex("Measure", "Measure", {unique: false});
-      shoppingStore.createIndex("Notify", "Notify", {unique: false});
+      shoppingStore.createIndex("name", "name", { unique: false });
+      shoppingStore.createIndex("initialQuantity", "initialQuantity", { unique: false });
+      shoppingStore.createIndex("currentQuantity", "currentQuantity", { unique: false });
+      shoppingStore.createIndex("alertQuantity", "alertQuantity", { unique: false });
+      shoppingStore.createIndex("expiryDate", "expiryDate", { unique: false });
+      fridgeStore.createIndex("measure", "measure", {unique: false});
+      shoppingStore.createIndex("notify", "notify", {unique: false});
     })
   }
 
   /**
    * adds a measure to database, return promise
    */
-  addMeasure(measure: Measure) {
+  addmeasure(measure: Measure) {
     var that = this;
     return this.db.openDatabase(1).then(function () {
       that.db.add('fridge', { name: measure.name, amount: measure.graduation }).then(() => {
@@ -66,7 +66,7 @@ export class DatabaseService {
    * get all measures from database
    * @returns array of measure
    */
-  getMeasureAll(): Array<Measure> {
+  getmeasureAll(): Array<Measure> {
     var that = this;
     let measures: Array<Measure> = [];
     this.db.openDatabase(1).then(function () {
@@ -79,7 +79,7 @@ export class DatabaseService {
     return measures;
   }
 
-  removeMeasure(index: number) {
+  removemeasure(index: number) {
     var that = this;
     return this.db.openDatabase(1).then(function () {
       that.db.delete('measure', index)
@@ -94,8 +94,8 @@ export class DatabaseService {
     var that = this;
     return this.db.openDatabase(1).then(function () {
       that.db.add('fridge', {
-        product: product.name, InitialQuantity: product.initialQuantity, CurrentQuantity: product.currentQuantity,
-        AlertQuantity: product.alertQuantity, Measure:product.measure, ExpiryDate: product.expiryDate,
+        name: product.name, initialQuantity: product.initialQuantity, currentQuantity: product.currentQuantity,
+        alertQuantity: product.alertQuantity, measure:product.measure, expiryDate: product.expiryDate,
       }).then(() => {
         console.log("added succes");
       }), (error) => {
@@ -110,9 +110,9 @@ export class DatabaseService {
     let result: Array<Product> = [];
     var that = this;
     this.db.openDatabase(1).then(function () {
-      that.db.getByIndex('fridge', 'product', name).then((prod) => {
+      that.db.getByIndex('fridge', 'name', name).then((prod) => {
         result.push(...prod);
-        // console.log( prod);
+        console.log( prod);
       }, (error) => { console.log("error get product"); console.log(name); });
     })
     return result;
@@ -122,6 +122,7 @@ export class DatabaseService {
    * return all products from database
    */
   getProductAll(): Array<Product> {
+
     var that = this;
     let products: Array<Product> = [];
     this.db.openDatabase(1).then(function () {
@@ -185,8 +186,8 @@ export class DatabaseService {
     var that = this;
     return this.db.openDatabase(1).then(function () {
       that.db.add('shoppingList', {
-        product: product.name, InitialQuantity: product.initialQuantity, CurrentQuantity: product.currentQuantity,
-        AlertQuantity: product.alertQuantity, ExpiryDate: product.expiryDate
+        product: product.name, initialQuantity: product.initialQuantity, currentQuantity: product.currentQuantity,
+        alertQuantity: product.alertQuantity, expiryDate: product.expiryDate
       }).then(() => {
         console.log("added succes");
       }), (error) => {
