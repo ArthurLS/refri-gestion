@@ -5,3 +5,7 @@ img{
 .green{
   background: rgba(97, 209, 46, 0.5);
 }
+
+.red{
+  background: red;
+}
