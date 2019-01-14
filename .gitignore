@@ -1,1 +1,3 @@
 refri-gestion-ng/src/tslint.json
+refri-gestion-cordova/platforms
+refri-gestion-cordova/plugins/cordova-plugin-whitelist/package.json

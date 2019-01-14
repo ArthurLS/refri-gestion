@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve --poll=1000",
     "build": "ng build",
-    "cordova": "ng build --prod --base-href . --output-path ../refri-gestion-cordova/wwww/",
+    "cordova": "ng build --prod --base-href . --output-path ../refri-gestion-cordova/www",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
