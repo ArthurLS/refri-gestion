@@ -33,10 +33,15 @@ export class AuthentificationService {
     // this.changeIsAuthenticated(true);
   }
 
-  public logup(user: User): Observable<User>{
+  public logup(user: User): boolean{
     // TODO uncomment when the add user take a user.
-    this.databaseService.addUser(user);
-    return this.user;
+    if(this.alreadyExist(user)){
+      this.databaseService.addUser(user);
+      return true;
+    }else{
+      return false;
+    }
+    
   }
 
   /** Asynchronous function to know if the user is connected
@@ -58,6 +63,11 @@ export class AuthentificationService {
     this.changeUser(user);
     localStorage.removeItem('currentUser');
     this.logger.next(false);
+  }
+
+  public alreadyExist(user:User):boolean{
+    // TODO make verification with database
+    return true;
   }
 
   changeUser(newUser): void{

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../models/Product.model';
 import { Measure } from '../models/Measure.model';
 import { DatabaseService } from '../services/database.service';
+import { AuthentificationService } from '../services/authentification.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
@@ -14,7 +15,7 @@ export class ScannerComponent implements OnInit {
 
   _success = new Subject<string>();
   measures: Measure[] = [];
-  notify = true;
+  notify: boolean;
   belloff: string;
   bellon: string;
   productName: string;
@@ -24,12 +25,18 @@ export class ScannerComponent implements OnInit {
   errorLog: string = null;
   successLog: string = null;
 
-  constructor(private dbService : DatabaseService) { }
+  constructor(private authenService: AuthentificationService, private dbService : DatabaseService) { }
 
   ngOnInit() {
     this.initMeasures();
     this.belloff = "../../assets/img/belloff.png";
     this.bellon = "../../assets/img/bellon.png";
+
+    // set the default parameter of notify
+    this.authenService.current_user.subscribe(user => {
+      this.notify = user.notifByDefault;
+    })
+    
     console.log("get",this.dbService.getProductAll())
   }
 

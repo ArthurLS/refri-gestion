@@ -43,7 +43,7 @@ export class SettingsComponent implements OnInit {
       this.name == null ||
       this.old_password == null ||
       this.new_password == null ||
-      this.new_confirmed_password){
+      this.new_confirmed_password == null){
       this.has_an_error = true;
       this.error_msg = "Champs vides."
     }
@@ -54,6 +54,8 @@ export class SettingsComponent implements OnInit {
       this.has_an_error = true;
       this.error_msg = "Mot de passe incorrect.";
     }else{
+      this.has_an_error = true;
+      this.error_msg = "Modifications enregistrées."
       let new_user = new User(this.id, this.email, this.name, this.new_password, this.notif_by_default)
       this.authenService.changeUser(new_user)
     }
