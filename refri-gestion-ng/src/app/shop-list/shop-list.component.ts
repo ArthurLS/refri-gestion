@@ -27,7 +27,7 @@ export class ShopListComponent implements OnInit {
     this.shopList = this.dbService.getShoppingAll();
     console.log("shopList",this.shopList);
 
-    this.measures = this.dbService.getmeasureAll();
+    this.measures = this.dbService.getMeasureAll();
     console.log("measures",this.measures);
   }
 

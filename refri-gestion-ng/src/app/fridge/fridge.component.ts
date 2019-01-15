@@ -42,7 +42,6 @@ export class FridgeComponent implements OnInit {
 
   ngOnInit() {
     this.foodList = this.dbService.getProductAll();
-
     console.log(this.foodList);
   }
 
@@ -85,7 +84,6 @@ export class FridgeComponent implements OnInit {
   }
 
   sortChange(e){
-
     switch (e.target.value) {
       case "AlphaB":
         console.log("AlphaB");

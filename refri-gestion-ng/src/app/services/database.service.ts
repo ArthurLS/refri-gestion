@@ -51,10 +51,10 @@ export class DatabaseService {
   /**
    * adds a measure to database, return promise
    */
-  addmeasure(measure: Measure) {
+  addMeasure(measure: Measure) {
     var that = this;
     return this.db.openDatabase(1).then(function () {
-      that.db.add('fridge', { name: measure.name, amount: measure.graduation }).then(() => {
+      that.db.add('measure', { name: measure.name, graduation: measure.graduation }).then(() => {
         console.log("added succes");
       }), (error) => {
         console.log("added error");
@@ -66,7 +66,7 @@ export class DatabaseService {
    * get all measures from database
    * @returns array of measure
    */
-  getmeasureAll(): Array<Measure> {
+  getMeasureAll(): Array<Measure> {
     var that = this;
     let measures: Array<Measure> = [];
     this.db.openDatabase(1).then(function () {
@@ -79,7 +79,7 @@ export class DatabaseService {
     return measures;
   }
 
-  removemeasure(index: number) {
+  removeMeasure(index: number) {
     var that = this;
     return this.db.openDatabase(1).then(function () {
       that.db.delete('measure', index)
@@ -174,14 +174,25 @@ export class DatabaseService {
     return users;
   }
 
+  updateUser(user: User){
+    var that = this;
+    return this.db.openDatabase(1).then(function () {
+      that.db.update('user', user).then(() => {
+        console.log("userUpdated");
+      }, (error) => {
+          console.log(error);
+      });
+    })
+  }
+
   removeUser(index: number) {
     var that = this;
     return this.db.openDatabase(1).then(function () {
       that.db.delete('user', index)
     })
-
-
   }
+
+
   addShopping(product: Product) {
     var that = this;
     return this.db.openDatabase(1).then(function () {
@@ -220,7 +231,6 @@ export class DatabaseService {
     var that = this;
     return this.db.openDatabase(1).then(function () {
       that.db.update('fridge', product).then(() => {
-        console.log("Yahou");
       }, (error) => {
           console.log(error);
       });
