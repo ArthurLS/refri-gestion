@@ -95,7 +95,7 @@ export class DatabaseService {
     return this.db.openDatabase(1).then(function () {
       that.db.add('fridge', {
         name: product.name, initialQuantity: product.initialQuantity, currentQuantity: product.currentQuantity,
-        alertQuantity: product.alertQuantity, measure:product.measure, expiryDate: product.expiryDate,
+        alertQuantity: product.alertQuantity, measure:product.measure, expiryDate: product.expiryDate, notify: product.notify
       }).then(() => {
         console.log("added succes");
       }), (error) => {

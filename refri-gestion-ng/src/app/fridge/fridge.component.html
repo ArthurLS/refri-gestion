@@ -15,7 +15,7 @@
 
     <table class="table container">
       <tbody>
-        <tr *ngFor="let prod of foodList" class="row" [class.green]="unsavedProd.includes(prod)" [class.red]="deletedProd.includes(prod)">
+        <tr *ngFor="let prod of foodList | filterProductPipe:search_item" class="row" [class.green]="unsavedProd.includes(prod)" [class.red]="deletedProd.includes(prod)">
           <td class="col-md-1 col-2">
               <div *ngIf="prod.notify; else elseBlock" (click)="bellSwitch(prod)"><img [src]="bellon"></div>
               <ng-template #elseBlock ><img [src]="belloff" (click)="bellSwitch(prod)"></ng-template>
@@ -42,5 +42,7 @@
     </table>
 
   </div>
-  <button (click)="saveChanges()" class="btn btn-primary">Confirmer</button>
+  <div class="col-6 offset-3 col-md-4 offset-md-4">
+    <button (click)="saveChanges()" class="btn btn-primary btn-block">Confirmer</button>
+  </div>
 </div>

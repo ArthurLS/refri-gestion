@@ -12,6 +12,7 @@ export class MenuComponent implements OnInit {
   cartPNG: string;
   listPNG: string;
   accountPNG: string;
+  logoutPNG: string;
   is_logged_in: boolean;
 
   constructor(
@@ -21,6 +22,7 @@ export class MenuComponent implements OnInit {
     this.cartPNG = "../../assets/img/cart.png";
     this.listPNG = "../../assets/img/list.png";
     this.accountPNG = "../../assets/img/account.png";
+    this.logoutPNG = "../../assets/img/logout.png";
    }
 
   ngOnInit() {
