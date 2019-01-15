@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../models/Product.model';
 import { Measure } from '../models/Measure.model';
+import { DatabaseService } from './../services/database.service';
 
 @Component({
   selector: 'app-shop-list',
@@ -16,32 +17,25 @@ export class ShopListComponent implements OnInit {
   productQuantity: number;
   productMeasure: number;
 
-  constructor() { }
+  unsaved: Product[] = [];
+  newProducts : Product[] = [];
+
+  constructor(private dbService : DatabaseService) { }
 
   ngOnInit() {
-    var measure = {id: 1, name: 'qte', graduation: 1};
-    var measure2 = {id: 4, name: 'L', graduation: 1};
-    var measure3 = {id: 3, name: 'g', graduation: 5};
-    this.measures.push(measure);
-    this.measures.push(measure2);
-    this.measures.push(measure3);
 
-    this.shopList.push({id: 6, name:'Lait', initialQuantity:6, currentQuantity:4, alertQuantity:2,
-      expiryDate: new Date(), measure: measure2, notify: true});
+    this.shopList = this.dbService.getShoppingAll();
+    console.log("shopList",this.shopList);
 
-    this.shopList.push({id: 7, name:'Oeuf', initialQuantity:12, currentQuantity:2, alertQuantity:2,
-      expiryDate: new Date(), measure: measure, notify: true});
-
-    this.shopList.push({id: 8, name:'Beurre', initialQuantity:500, currentQuantity:200, alertQuantity:50,
-      expiryDate: new Date(), measure: measure3, notify: false});
-
+    this.measures = this.dbService.getmeasureAll();
+    console.log("measures",this.measures);
   }
 
 
   emptyList(){
     var that = this;
     this.shopList.forEach(function(product){
-      that.removeFromList(product.id);
+      that.removeFromList(product);
     });
   }
 
@@ -56,6 +50,7 @@ export class ShopListComponent implements OnInit {
       alertQuantity: this.productQuantity/10, expiryDate: null, measure: m, notify: false};
 
       this.shopList.push(p);
+      this.addNewProducts(p);
       this.productName = "";
       this.productQuantity = null;
     }
@@ -64,12 +59,44 @@ export class ShopListComponent implements OnInit {
     }
   }
 
-  removeFromList(id: number){
-      console.log("id",id);
+  removeFromList(product: Product){
+      console.log("p",product);
+      this.addUnsaved(product);
+  }
+
+  addUnsaved(product:Product){
+    let isThere = false;
+    this.unsaved.forEach(prod => {
+      if(product.id == prod.id){
+        prod = product;
+        isThere = true;
+      }
+
+    });
+    if(!isThere) this.unsaved.push(product);
+    console.log("this.unsaved",this.unsaved);
+    console.log("this.product",this.shopList);
+  }
+
+  addNewProducts(product:Product){
+    let isThere = false;
+    this.newProducts.forEach(prod => {
+      if(product.id == prod.id){
+        prod = product;
+        isThere = true;
+      }
+
+    });
+    if(!isThere) this.newProducts.push(product);
   }
 
   confirmChanges(){
 
+    this.newProducts = [];
+    this.unsaved = [];
   }
 
+  quantityChange(product: Product){
+    this.addNewProducts(product);
+  }
 }

@@ -13,7 +13,7 @@ import { MenuComponent } from './menu/menu.component';
 import { LogupComponent } from './logup/logup.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { AlreadyAuthGuard } from './services/alreadyAuth-guard.service';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import { AlreadyAuthGuard } from './services/alreadyAuth-guard.service';
     FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [
     AuthGuard,
