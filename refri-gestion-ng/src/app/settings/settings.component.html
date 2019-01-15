@@ -1,3 +1,35 @@
-<p>
-  settings works!
-</p>
+<div class="container">
+  <div class="row">
+    <p>Paramètres</p>
+  </div>
+  <div [hidden]="!has_an_error" class="row">
+    <p>{{error_msg}}</p>
+  </div>
+  <div class="row">
+    <input placeholder="Email" [(ngModel)]="email">
+  </div>
+  <div class="row">
+    <input placeholder="Nom d'utilisateur" [(ngModel)]="name">
+  </div>
+  <div class="row">
+    <input type="password" placeholder="ancien mot de passe" [(ngModel)]="old_password">
+  </div>
+  <div class="row">
+    <input type="password" placeholder="Nouveau mot de passe" [(ngModel)]="new_password">
+  </div>
+  <div class="row">
+    <input type="password" placeholder="Confirmer nouveau mot de passe" [(ngModel)]="new_confirmed_password">
+  </div>
+  <div class="row">
+    <label class="switch">
+      <input type="checkbox" [(ngModel)]="notif_by_default">
+      <span class="slider round"></span>
+    </label>
+    <p>
+      Activer la notification d'un produit lors de l'ajout.
+    </p>
+  </div>
+  <div class="row">
+    <button type="button" class="btn btn-primary" (click)="valid()">Valider</button>
+  </div>
+</div>

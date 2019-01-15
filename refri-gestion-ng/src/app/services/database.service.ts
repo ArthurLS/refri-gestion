@@ -141,7 +141,6 @@ export class DatabaseService {
     return this.db.openDatabase(1).then(function () {
       that.db.delete('fridge', index)
     })
-
   }
   /**
    * adds a user to database, return promise
@@ -149,7 +148,7 @@ export class DatabaseService {
   addUser(user: User) {
     var that = this;
     return this.db.openDatabase(1).then(function () {
-      that.db.add('user', { name: user.name, email: user.email, password: user.email }).then(() => {
+      that.db.add('user', { name: user.name, email: user.email, password: user.password }).then(() => {
         console.log("added succes");
       }), (error) => {
         console.log("added error");
@@ -161,12 +160,12 @@ export class DatabaseService {
    * get all users from database
    * @returns array of user
    */
-  getUserAll(): Array<User> {
+  getUserAll(): User[] {
     var that = this;
-    let users: Array<User> = [];
+    let users: User[] = [];
     this.db.openDatabase(1).then(function () {
       that.db.getAll('user').then((user) => {
-        users.push(user);
+        users.push(...user);
       }), (error) => {
         console.log("get user error");
       }
