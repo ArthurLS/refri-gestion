@@ -11,7 +11,7 @@ import { DbWrapper } from 'angular2-indexeddb/angular2-indexeddb';
 })
 export class FridgeComponent implements OnInit {
 
-  @Input() search_item: string;
+  search_item: string = "";
   food: Product;
   food1: Product;
   food2: Product;
@@ -37,30 +37,12 @@ export class FridgeComponent implements OnInit {
     this.deletedProd = [];
     this.belloff = "../../assets/img/belloff.png";
     this.bellon = "../../assets/img/bellon.png";
-    // this.measure = {id: 5, name: 'qte', graduation: 1};
-    // this.measure1 = {id: 2, name: 'L', graduation: 0.1};
-    // this.measure2 = {id: 1, name: 'g', graduation: 10};
 
-    // this.date = new Date('01/15/2018');
-    // this.date1 = new Date('02/15/2018');
-    // this.date2 = new Date('03/15/2018');
-
-    // this.food = {id: 0, name: 'Oeuf', initialQuantity: 6, currentQuantity: 4, alertQuantity: 2,
-    //  expiryDate: this.date, measure: this.measure, notify: true};
-    // this.food1 = {id: 1, name: 'Lait', initialQuantity: 6, currentQuantity: 0.3, alertQuantity: 2,
-    //   expiryDate: this.date1, measure: this.measure1, notify: true};
-    // this.food2 = {id: 2, name: 'Beurre', initialQuantity: 6, currentQuantity: 200, alertQuantity: 2,
-    //  expiryDate: this.date2, measure: this.measure2, notify: false};
-
-
-    //this.foodList = [this.food, this.food1, this.food2];
   }
 
   ngOnInit() {
     this.foodList = this.dbService.getProductAll();
-
     console.log(this.foodList);
-    //console.log(this.foodList[0].name);
   }
 
   bellSwitch(prod:Product) {
@@ -102,7 +84,6 @@ export class FridgeComponent implements OnInit {
   }
 
   sortChange(e){
-
     switch (e.target.value) {
       case "AlphaB":
         console.log("AlphaB");
