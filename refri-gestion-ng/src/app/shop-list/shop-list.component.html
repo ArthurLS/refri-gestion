@@ -20,13 +20,13 @@
             <button class="btn btn-primary" (click)="addToList()">+</button>
           </td>
         </tr>
-        <tr *ngFor="let product of shopList" class="row">
+        <tr *ngFor="let product of shopList" class="row" [class.green]="newProducts.includes(product)" [class.red]="unsaved.includes(product)">
           <td class="col-md-4 col-4">{{product.name}}</td>
           <td class="col-md-6 col-6" style="white-space:nowrap">
-            <input class="col-md-6 col-6 inputPadding" type="number" step="{{product.measure.graduation}}" value="{{product.initialQuantity}}"> {{product.measure.name}}
+            <input class="col-md-6 col-6 inputPadding" type="number" (change)="quantityChange(product)" step="{{product.measure.graduation}}" value="{{product.initialQuantity}}"> {{product.measure.name}}
           </td>
           <td class="col-md-2 col-2">
-            <button class="btn btn-danger" (click)="removeFromList(product.id)">x</button>
+            <button class="btn btn-danger" (click)="removeFromList(product)">x</button>
           </td>
         </tr>
       </tbody>

@@ -30,6 +30,7 @@ export class ScannerComponent implements OnInit {
     this.initMeasures();
     this.belloff = "../../assets/img/belloff.png";
     this.bellon = "../../assets/img/bellon.png";
+    console.log("get",this.dbService.getProductAll())
   }
 
   initMeasures(){
@@ -59,10 +60,11 @@ export class ScannerComponent implements OnInit {
       && this.productDate!=null){
 
         let p = {id:-1, name:this.productName, initialQuantity: this.productQuantity, currentQuantity: this.productQuantity,
-        alertQuantity: this.productQuantity/10, expiryDate: new Date(this.productDate), measure: this.productMeasure, notify: this.notify};
+        alertQuantity: this.productQuantity*0.15, expiryDate: new Date(this.productDate), measure: this.productMeasure, notify: this.notify};
 
-      //this.dbService.addProduct(p);
-        console.log("p",p);
+        this.dbService.addProduct(p);
+        console.log("get",this.dbService.getProductAll())
+
         this.errorLog=null;
         this.productName = "";
         this.productQuantity = null;
