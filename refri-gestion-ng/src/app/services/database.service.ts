@@ -214,6 +214,16 @@ export class DatabaseService {
     return this.db.openDatabase(1).then(function () {
       that.db.delete('shoppingList', index)
     })
+  }
 
-}
+  updateProduct(product: Product){
+    var that = this;
+    return this.db.openDatabase(1).then(function () {
+      that.db.update('fridge', product).then(() => {
+        console.log("Yahou");
+      }, (error) => {
+          console.log(error);
+      });
+    })
+  }
 }
