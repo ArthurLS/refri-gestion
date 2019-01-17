@@ -136,12 +136,24 @@ export class DatabaseService {
     return products;
   }
 
+  updateProduct(product: Product){
+    var that = this;
+    return this.db.openDatabase(1).then(function () {
+      that.db.update('fridge', product).then(() => {
+      }, (error) => {
+          console.log(error);
+      });
+    })
+  }
+
   removeProduct(index: number) {
     var that = this;
     return this.db.openDatabase(1).then(function () {
       that.db.delete('fridge', index)
     })
   }
+
+
   /**
    * adds a user to database, return promise
    */
@@ -196,8 +208,8 @@ export class DatabaseService {
     var that = this;
     return this.db.openDatabase(1).then(function () {
       that.db.add('shoppingList', {
-        product: product.name, initialQuantity: product.initialQuantity, currentQuantity: product.currentQuantity,
-        alertQuantity: product.alertQuantity, expiryDate: product.expiryDate
+        name: product.name, initialQuantity: product.initialQuantity, currentQuantity: product.currentQuantity,
+        alertQuantity: product.alertQuantity, expiryDate: product.expiryDate, measure: product.measure, notify: product.notify
       }).then(() => {
         console.log("added succes");
       }), (error) => {
@@ -205,18 +217,29 @@ export class DatabaseService {
       }
     })
   }
+
   getShoppingAll(): Array<Product> {
     var that = this;
-    let products: Array<Product> = [];
+    let shopList: Array<Product> = [];
     this.db.openDatabase(1).then(function () {
-      that.db.getAll('shoppingList').then((fridge) => {
+      that.db.getAll('shoppingList').then((shop) => {
         console.log("fin prod all");
-        products.push(...fridge);
+        shopList.push(...shop);
       }), (error) => {
         console.log("get error");
       }
     });
-    return products;
+    return shopList;
+  }
+
+  updateShopping(product: Product){
+    var that = this;
+    return this.db.openDatabase(1).then(function () {
+      that.db.update('shoppingList', product).then(() => {
+      }, (error) => {
+          console.log(error);
+      });
+    })
   }
 
   removeShopping(index: number) {
@@ -226,13 +249,4 @@ export class DatabaseService {
     })
   }
 
-  updateProduct(product: Product){
-    var that = this;
-    return this.db.openDatabase(1).then(function () {
-      that.db.update('fridge', product).then(() => {
-      }, (error) => {
-          console.log(error);
-      });
-    })
-  }
 }

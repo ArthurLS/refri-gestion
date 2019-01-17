@@ -16,22 +16,22 @@
     <table class="table container">
       <tbody>
         <tr *ngFor="let prod of foodList | filterProductPipe:search_item" class="row" [class.green]="unsavedProd.includes(prod)" [class.red]="deletedProd.includes(prod)">
-          <td class="col-md-1 col-2">
+          <td class="col-md-1 col-3">
               <div *ngIf="prod.notify; else elseBlock" (click)="bellSwitch(prod)"><img [src]="bellon"></div>
               <ng-template #elseBlock ><img [src]="belloff" (click)="bellSwitch(prod)"></ng-template>
           </td>
 
-          <td class="col-md-3 col-5" style="white-space:nowrap">
+          <td class="col-md-3 col-3" style="white-space:nowrap">
             <div class="row">
               {{prod.name}}
             </div>
             <div class="row">
-              {{prod.expiryDate.toDateString()}}
+              {{prod.expiryDate.getDate()}}/{{prod.expiryDate.getMonth()+1}}/{{prod.expiryDate.getFullYear()}}
             </div>
           </td>
 
-          <td class="col-md-6 col-4">
-            <input class="col-5" type="number" min="0" (change)="quantityChange(prod)" [(ngModel)]="prod.currentQuantity" step={{prod.measure.graduation}}>
+          <td class="col-md-6 col-5">
+            <input class="col-8" type="number" min="0" (change)="quantityChange(prod)" [(ngModel)]="prod.currentQuantity" step={{prod.measure.graduation}}>
             {{prod.measure.name}}
           </td>
           <td class="col-md-2 col-1">

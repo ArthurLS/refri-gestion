@@ -42,6 +42,7 @@ export class FridgeComponent implements OnInit {
 
   ngOnInit() {
     this.foodList = this.dbService.getProductAll();
+    console.log("Food List");
     console.log(this.foodList);
   }
 
@@ -86,7 +87,6 @@ export class FridgeComponent implements OnInit {
   sortChange(e){
     switch (e.target.value) {
       case "AlphaB":
-        console.log("AlphaB");
         this.foodList.sort(function(a, b){
           if(a.name < b.name) { return -1; }
           if(a.name > b.name) { return 1; }
@@ -95,7 +95,6 @@ export class FridgeComponent implements OnInit {
       break;
       case "Quantity":
         this.foodList.sort(function(a, b){
-
           if((a.currentQuantity/a.measure.graduation) < (b.currentQuantity/a.measure.graduation)) { return -1; }
           if((a.currentQuantity/a.measure.graduation) > (b.currentQuantity/a.measure.graduation)) { return 1; }
           return 0;
@@ -112,7 +111,7 @@ export class FridgeComponent implements OnInit {
       break;
 
       default:
-        console.log("Default");
+        console.log("Default Sort");
         this.foodList.sort(function(a, b){
           if(a.id < b.id) { return -1; }
           if(a.id > b.id) { return 1; }
