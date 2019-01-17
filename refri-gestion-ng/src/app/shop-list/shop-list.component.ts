@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../models/Product.model';
 import { Measure } from '../models/Measure.model';
+import { DatabaseService } from './../services/database.service';
 
 @Component({
   selector: 'app-shop-list',
@@ -16,47 +17,37 @@ export class ShopListComponent implements OnInit {
   productQuantity: number;
   productMeasure: number;
 
-  constructor() { }
+  deletedProducts: Product[];
+  newProducts : Product[];
+  changedProducts : Product[];
+
+  constructor(private dbService : DatabaseService) { }
 
   ngOnInit() {
-    var measure = {id: 1, name: 'qte', graduation: 1};
-    var measure2 = {id: 4, name: 'L', graduation: 1};
-    var measure3 = {id: 3, name: 'g', graduation: 5};
-    this.measures.push(measure);
-    this.measures.push(measure2);
-    this.measures.push(measure3);
+    this.deletedProducts = [];
+    this.newProducts = [];
+    this.changedProducts = [];
 
-    this.shopList.push({id: 6, name:'Lait', initialQuantity:6, currentQuantity:4, alertQuantity:2,
-      expiryDate: new Date(), measure: measure2, notify: true});
+    this.shopList = this.dbService.getShoppingAll();
+    console.log("shopList",this.shopList);
 
-    this.shopList.push({id: 7, name:'Oeuf', initialQuantity:12, currentQuantity:2, alertQuantity:2,
-      expiryDate: new Date(), measure: measure, notify: true});
-
-    this.shopList.push({id: 8, name:'Beurre', initialQuantity:500, currentQuantity:200, alertQuantity:50,
-      expiryDate: new Date(), measure: measure3, notify: false});
-
+    this.measures = this.dbService.getMeasureAll();
+    console.log("measures",this.measures);
   }
 
-
-  emptyList(){
-    var that = this;
-    this.shopList.forEach(function(product){
-      that.removeFromList(product.id);
-    });
-  }
-
-  addToList(){
-    if(this.productName!=null && this.productName!=""
+  fieldChecker(){
+    if(this.productName!=null
       && this.productQuantity!=null
       && this.productMeasure!= null){
 
       let m = this.measures.filter(measure => measure.id == this.productMeasure)[0];
+      console.log(m);
 
-      let p = {id: 10, name:this.productName,initialQuantity: this.productQuantity, currentQuantity: this.productQuantity,
+      let p = {id: this.newProducts.length, name: this.productName, initialQuantity: this.productQuantity, currentQuantity: this.productQuantity,
       alertQuantity: this.productQuantity/10, expiryDate: null, measure: m, notify: false};
 
-      this.shopList.push(p);
-      this.productName = "";
+      this.addNewProduct(p);
+      this.productName = null;
       this.productQuantity = null;
     }
     else{
@@ -64,12 +55,74 @@ export class ShopListComponent implements OnInit {
     }
   }
 
-  removeFromList(id: number){
-      console.log("id",id);
+  addNewProduct(product:Product){
+    this.shopList.push(product);
+    this.newProducts.push(product);
+    console.log(this.shopList);
+  }
+
+  quantityChange(product: Product){
+    let isThere = false;
+    this.changedProducts.forEach(prod => {
+      if(product.name == prod.name){
+        prod = product;
+        isThere = true;
+      }
+    });
+    // It's not in changedProducts
+    if(!isThere) {
+      // Checks if the change wasn't made to a newly created product
+      // Otherwise, it create 2 products (one with udpdate, one with newProduct)
+      isThere = false;
+      this.newProducts.forEach(prod => {
+        if(product.name == prod.name){
+          prod = product;
+          isThere = true;
+        }
+      })
+      // Not in changed, and not in new
+      if(!isThere) {
+        this.changedProducts.push(product);
+      }
+    }
+  }
+
+  addDeleted(product:Product){
+    this.deletedProducts.push(product);
+  }
+
+  emptyList(){
+    var that = this;
+    this.shopList.forEach(function(product){
+      that.addDeleted(product);
+    });
   }
 
   confirmChanges(){
 
-  }
+    this.deletedProducts.forEach(prod => {
+      // Prevents from deleting a non existant product in the db
+      if(!this.newProducts.includes(prod))
+        this.dbService.removeShopping(prod.id);
+      else {
+        let idOfProd = this.newProducts.indexOf(prod, 0);
+        this.newProducts.splice(idOfProd, 1);
+      }
+    });
+    this.deletedProducts = [];
 
+    this.newProducts.forEach(prod => {
+      this.dbService.addShopping(prod);
+    });
+    this.newProducts = [];
+
+    this.changedProducts.forEach(prod => {
+      this.dbService.updateShopping(prod);
+    });
+    this.changedProducts = [];
+
+
+    this.shopList = this.dbService.getShoppingAll();
+    console.log(this.shopList);
+  }
 }

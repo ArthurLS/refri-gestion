@@ -1,3 +1,4 @@
+import { FilterProductPipePipe } from './filter-product--pipe.pipe';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,7 +14,7 @@ import { MenuComponent } from './menu/menu.component';
 import { LogupComponent } from './logup/logup.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { AlreadyAuthGuard } from './services/alreadyAuth-guard.service';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -24,13 +25,15 @@ import { AlreadyAuthGuard } from './services/alreadyAuth-guard.service';
     ShopListComponent,
     SettingsComponent,
     MenuComponent,
-    LogupComponent
+    LogupComponent,
+    FilterProductPipePipe
   ],
   imports: [
     FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [
     AuthGuard,

@@ -27,33 +27,32 @@ export class LogupComponent implements OnInit {
     private databaseService: DatabaseService,
     private router: Router) {
   }
-  
+
   ngOnInit() {
     this.has_an_error = false;
   }
 
-  logup(){
+  logup() {
     console.log('email: ', this.email, 'username: ', this.username, 'password: ', this.password, 'confirmed_password: ', this.confirmed_password)
-    if(this.email == null ||
+    this.new_user = new User(-1, this.email, this.username, this.password, true);
+    if (this.email == null ||
       this.username == null ||
       this.password == null ||
-      this.confirmed_password == null){
+      this.confirmed_password == null) {
       this.has_an_error = true;
       this.error_msg = "Champs vides.";
-    }else if(this.password !== this.confirmed_password){
+    } else if (this.password !== this.confirmed_password) {
       this.has_an_error = true;
       this.error_msg = "Mots de passe invalides."
-    // TODO check if user already exist
-    //}else if(!this.databaseService.getUser(this.email, this.password) != null){
-    //  this.has_an_error = true;
-    //  this.error_msg = "Champs invalides."
-    }else{
-      this.has_an_error = false;
+    } else if (this.authenService.logup(this.new_user)) {
       console.log('email: ', this.email, 'username: ', this.username, 'password: ', this.password, 'confirmed_password', this.confirmed_password);
-      this.new_user = new User(-1, this.email, this.username, this.password, true);
-      this.authenService.logup(this.new_user).subscribe();
+      this.has_an_error = false;
+      this.error_msg = "";
       // go back to home page
       this.router.navigate(['']);
+    } else {
+      this.has_an_error = true;
+      this.error_msg = "Impossible de créer ce compte.";
     }
   }
 }

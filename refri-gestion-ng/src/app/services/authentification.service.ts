@@ -11,34 +11,37 @@ export class AuthentificationService {
   private user = new BehaviorSubject<User>(new User(-1, '', '','', true))
   private logger =new BehaviorSubject<boolean>(localStorage.getItem('currentUser') != null);
 
-  cast_user = this.user.asObservable();
+  current_user = this.user.asObservable();
 
   constructor(private databaseService: DatabaseService) {}
 
   public login(email: string, password: string): boolean{    
     // this.changeUser();
-    // localStorage.setItem('currentUser', JSON.stringify(user));
-    let users = this.databaseService.getUserAll();
-    console.log('users', users);
-    let user = users.filter(user =>{
-      user.email == email && user.password == password}
-    );
-    console.log('user', user);
+    // localStorage.setItem('currentUser', JSON.stringify(user))
+    let user = new User(-1, email, '', password, false);
+    console.log('user final', user);
     if(user != null){
+      this.user.next(user);
       localStorage.setItem('currentUser', email);
       this.logger.next(true);
       return true
     }else{
+      console.log('ici')
       return false
     }
 
     // this.changeIsAuthenticated(true);
   }
 
-  public logup(user: User): Observable<User>{
+  public logup(user: User): boolean{
     // TODO uncomment when the add user take a user.
-    this.databaseService.addUser(user); 
-    return this.user;
+    if(this.alreadyExist(user)){
+      this.databaseService.addUser(user);
+      return true;
+    }else{
+      return false;
+    }
+    
   }
 
   /** Asynchronous function to know if the user is connected
@@ -60,6 +63,11 @@ export class AuthentificationService {
     this.changeUser(user);
     localStorage.removeItem('currentUser');
     this.logger.next(false);
+  }
+
+  public alreadyExist(user:User):boolean{
+    // TODO make verification with database
+    return true;
   }
 
   changeUser(newUser): void{

@@ -51,10 +51,10 @@ export class DatabaseService {
   /**
    * adds a measure to database, return promise
    */
-  addmeasure(measure: Measure) {
+  addMeasure(measure: Measure) {
     var that = this;
     return this.db.openDatabase(1).then(function () {
-      that.db.add('fridge', { name: measure.name, amount: measure.graduation }).then(() => {
+      that.db.add('measure', { name: measure.name, graduation: measure.graduation }).then(() => {
         console.log("added succes");
       }), (error) => {
         console.log("added error");
@@ -66,7 +66,7 @@ export class DatabaseService {
    * get all measures from database
    * @returns array of measure
    */
-  getmeasureAll(): Array<Measure> {
+  getMeasureAll(): Array<Measure> {
     var that = this;
     let measures: Array<Measure> = [];
     this.db.openDatabase(1).then(function () {
@@ -79,7 +79,7 @@ export class DatabaseService {
     return measures;
   }
 
-  removemeasure(index: number) {
+  removeMeasure(index: number) {
     var that = this;
     return this.db.openDatabase(1).then(function () {
       that.db.delete('measure', index)
@@ -95,7 +95,7 @@ export class DatabaseService {
     return this.db.openDatabase(1).then(function () {
       that.db.add('fridge', {
         name: product.name, initialQuantity: product.initialQuantity, currentQuantity: product.currentQuantity,
-        alertQuantity: product.alertQuantity, measure:product.measure, expiryDate: product.expiryDate,
+        alertQuantity: product.alertQuantity, measure:product.measure, expiryDate: product.expiryDate, notify: product.notify
       }).then(() => {
         console.log("added succes");
       }), (error) => {
@@ -136,20 +136,31 @@ export class DatabaseService {
     return products;
   }
 
+  updateProduct(product: Product){
+    var that = this;
+    return this.db.openDatabase(1).then(function () {
+      that.db.update('fridge', product).then(() => {
+      }, (error) => {
+          console.log(error);
+      });
+    })
+  }
+
   removeProduct(index: number) {
     var that = this;
     return this.db.openDatabase(1).then(function () {
       that.db.delete('fridge', index)
     })
-
   }
+
+
   /**
    * adds a user to database, return promise
    */
   addUser(user: User) {
     var that = this;
     return this.db.openDatabase(1).then(function () {
-      that.db.add('user', { name: user.name, email: user.email, password: user.email }).then(() => {
+      that.db.add('user', { name: user.name, email: user.email, password: user.password }).then(() => {
         console.log("added succes");
       }), (error) => {
         console.log("added error");
@@ -161,9 +172,9 @@ export class DatabaseService {
    * get all users from database
    * @returns array of user
    */
-  getUserAll(): Array<User> {
+  getUserAll(): User[] {
     var that = this;
-    let users: Array<User> = [];
+    let users: User[] = [];
     this.db.openDatabase(1).then(function () {
       that.db.getAll('user').then((user) => {
         users.push(...user);
@@ -175,20 +186,31 @@ export class DatabaseService {
     return users;
   }
 
+  updateUser(user: User){
+    var that = this;
+    return this.db.openDatabase(1).then(function () {
+      that.db.update('user', user).then(() => {
+        console.log("userUpdated");
+      }, (error) => {
+          console.log(error);
+      });
+    })
+  }
+
   removeUser(index: number) {
     var that = this;
     return this.db.openDatabase(1).then(function () {
       that.db.delete('user', index)
     })
-
-
   }
+
+
   addShopping(product: Product) {
     var that = this;
     return this.db.openDatabase(1).then(function () {
       that.db.add('shoppingList', {
-        product: product.name, initialQuantity: product.initialQuantity, currentQuantity: product.currentQuantity,
-        alertQuantity: product.alertQuantity, expiryDate: product.expiryDate
+        name: product.name, initialQuantity: product.initialQuantity, currentQuantity: product.currentQuantity,
+        alertQuantity: product.alertQuantity, expiryDate: product.expiryDate, measure: product.measure, notify: product.notify
       }).then(() => {
         console.log("added succes");
       }), (error) => {
@@ -196,18 +218,29 @@ export class DatabaseService {
       }
     })
   }
+
   getShoppingAll(): Array<Product> {
     var that = this;
-    let products: Array<Product> = [];
+    let shopList: Array<Product> = [];
     this.db.openDatabase(1).then(function () {
-      that.db.getAll('shoppingList').then((fridge) => {
+      that.db.getAll('shoppingList').then((shop) => {
         console.log("fin prod all");
-        products.push(...fridge);
+        shopList.push(...shop);
       }), (error) => {
         console.log("get error");
       }
     });
-    return products;
+    return shopList;
+  }
+
+  updateShopping(product: Product){
+    var that = this;
+    return this.db.openDatabase(1).then(function () {
+      that.db.update('shoppingList', product).then(() => {
+      }, (error) => {
+          console.log(error);
+      });
+    })
   }
 
   removeShopping(index: number) {
@@ -215,6 +248,6 @@ export class DatabaseService {
     return this.db.openDatabase(1).then(function () {
       that.db.delete('shoppingList', index)
     })
+  }
 
-}
 }

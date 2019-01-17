@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../models/Product.model';
 import { Measure } from '../models/Measure.model';
+import { DatabaseService } from '../services/database.service';
+import { AuthentificationService } from '../services/authentification.service';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-scanner',
@@ -9,21 +13,73 @@ import { Measure } from '../models/Measure.model';
 })
 export class ScannerComponent implements OnInit {
 
-  private measures: Measure[];
-  private selected_measure: Measure;
-  constructor() {
-    this.measures = [];
-    let measureQte = new Measure(1, 'Qte', 1);
-    let measureL = new Measure(2, 'L', 1);
-    let measureKg = new Measure(3, 'kg', 1);
-    this.measures.push(measureQte);
-    this.measures.push(measureL);
-    this.measures.push(measureKg);
+  _success = new Subject<string>();
+  measures: Measure[] = [];
+  notify: boolean;
+  belloff: string;
+  bellon: string;
+  productName: string;
+  productQuantity: number;
+  productMeasure: Measure;
+  productDate: string;
+  errorLog: string = null;
+  successLog: string = null;
 
-    console.log('measure', this.measures);
-   }
+  constructor(private authenService: AuthentificationService, private dbService : DatabaseService) { }
 
   ngOnInit() {
+    this.initMeasures();
+    this.belloff = "../../assets/img/belloff.png";
+    this.bellon = "../../assets/img/bellon.png";
+
+    // set the default parameter of notify
+    this.authenService.current_user.subscribe(user => {
+      this.notify = user.notifByDefault;
+    })
+    
+    console.log("get",this.dbService.getProductAll())
   }
 
+  initMeasures(){
+    var measure = {id: 1, name: 'qte', graduation: 1};
+    var measure2 = {id: 4, name: 'L', graduation: 1};
+    var measure3 = {id: 3, name: 'g', graduation: 5};
+    this.measures.push(measure);
+    this.measures.push(measure2);
+    this.measures.push(measure3);
+
+    this.productMeasure = measure;
+
+    this._success.subscribe((message) => this.successLog = message);
+    this._success.pipe(
+      debounceTime(2000)
+    ).subscribe(() => this.successLog = null);
+  }
+
+  changeBell(){
+    this.notify = !this.notify;
+  }
+
+  addProductToFridge(){
+    if(this.productName!=null && this.productName!=""
+      && this.productQuantity!=null && this.productQuantity > 0
+      && this.productMeasure!= null
+      && this.productDate!=null){
+
+        let p = {id:-1, name:this.productName, initialQuantity: this.productQuantity, currentQuantity: this.productQuantity,
+        alertQuantity: this.productQuantity*0.15, expiryDate: new Date(this.productDate), measure: this.productMeasure, notify: this.notify};
+
+        this.dbService.addProduct(p);
+        console.log("get",this.dbService.getProductAll())
+
+        this.errorLog=null;
+        this.productName = "";
+        this.productQuantity = null;
+        this.productDate = null;
+        this._success.next("Produit ajouté au frigo !");
+      }
+      else{
+        this.errorLog="Remplir tous les champs pour ajouter un produit";
+      }
+  }
 }
