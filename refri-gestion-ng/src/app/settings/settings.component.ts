@@ -21,10 +21,10 @@ export class SettingsComponent implements OnInit {
 
     this.date = new Date('01/15/2018');
 
-    this.food = {id: 5, name: 'oeuf', initialQuantity: 6, currentQuantity: 4, alertQuantity: 2,
+    this.food = {id: 5, name: 'carote', initialQuantity: 6, currentQuantity: 4, alertQuantity: 2,
      expiryDate: this.date, measure: this.measure, notify: false};
 
-     this.user = {id: 1, email: "test@", name:"me", password:"mepas",notif_by_default:false }
+     this.user = {id: 1, email: "testy@", name:"sme", password:"mepas",notif_by_default:false }
    }
 
   ngOnInit() {
@@ -33,8 +33,12 @@ export class SettingsComponent implements OnInit {
     // this.dbService.getProductAll().subscribe(fridge => console.log(fridge));
     // this.dbService.getProduct('Oeuf').subscribe);
     // console.log(this.dbService.getProduct('pomme'));
+    // console.log(this.dbService.getUserAll());
     console.log(this.dbService.getUserAll());
-      // console.log(this.dbService.getProductAll());
+    let x = [];
+    console.log(x);
+      console.log(this.dbService.getUserAll().length);
+
 
     // this.dbService.getProductAll().then(function(value) {console.log(value);});
   }

@@ -166,11 +166,12 @@ export class DatabaseService {
     let users: Array<User> = [];
     this.db.openDatabase(1).then(function () {
       that.db.getAll('user').then((user) => {
-        users.push(user);
+        users.push(...user);
       }), (error) => {
         console.log("get user error");
       }
     })
+    console.log(users);
     return users;
   }
 
