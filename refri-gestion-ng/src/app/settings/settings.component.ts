@@ -19,18 +19,20 @@ export class SettingsComponent implements OnInit {
   current_password: string;
   new_password: string;
   new_confirmed_password: string;
-  notif_by_default: boolean;
-  has_an_error: boolean;
-  error_msg: string;
+  notify_by_default: boolean;
+  has_an_msg: boolean;
+  msg: string;
 
   constructor(private authenService: AuthentificationService, private dbService : DatabaseService) {
-    this.has_an_error = false;
-    this.error_msg = "";
-    authenService.current_user.subscribe(user => {
+    this.has_an_msg = false;
+    this.msg = "";
+    authenService.currentUser.subscribe(user => {
+      this.id = user.id;
       this.current_password = user.password;
       this.email = user.email;
       this.name = user.name;
-      this.notif_by_default = user.notifByDefault;
+      this.notify_by_default = user.notifyByDefault;
+      console.log('notify', this.notify_by_default);
     })
   }
 
@@ -43,21 +45,28 @@ export class SettingsComponent implements OnInit {
       this.name == null ||
       this.old_password == null ||
       this.new_password == null ||
-      this.new_confirmed_password == null){
-      this.has_an_error = true;
-      this.error_msg = "Champs vides."
+      this.new_confirmed_password == null ||
+      this.notify_by_default == null){
+      this.has_an_msg = true;
+      this.msg = "Champs vides."
     }
     else if(this.old_password != this.current_password){
-      this.has_an_error = true;
-      this.error_msg = "Mot de passe incorrect.";
+      this.has_an_msg = true;
+      this.msg = "Mot de passe incorrect.";
     }else if(this.new_password != this.new_confirmed_password){
-      this.has_an_error = true;
-      this.error_msg = "Mot de passe incorrect.";
-    }else{
-      this.has_an_error = true;
-      this.error_msg = "Modifications enregistrées."
-      let new_user = new User(this.id, this.email, this.name, this.new_password, this.notif_by_default)
-      this.authenService.changeUser(new_user)
+      this.has_an_msg = true;
+      this.msg = "Mot de passe incorrect.";
+    }else{    
+      let new_user = new User(this.id, this.email, this.name, this.new_password, this.notify_by_default)
+      this.authenService.changeUser(new_user).then(result =>{
+        if(result){
+          this.has_an_msg = true;
+          this.msg = "Modifications enregistrées."
+        }else{
+          this.has_an_msg = true;
+          this.msg = "Email utilisé par un autre compte."
+        }
+      })
     }
   }
 

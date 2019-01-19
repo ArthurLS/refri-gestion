@@ -33,8 +33,8 @@ export class ScannerComponent implements OnInit {
     this.bellon = "../../assets/img/bellon.png";
 
     // set the default parameter of notify
-    this.authenService.current_user.subscribe(user => {
-      this.notify = user.notifByDefault;
+    this.authenService.currentUser.subscribe(user => {
+      this.notify = user.notifyByDefault;
     })
     
     console.log("get",this.dbService.getProductAll())
