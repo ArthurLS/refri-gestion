@@ -21,6 +21,9 @@ export class ShopListComponent implements OnInit {
   newProducts : Product[];
   changedProducts : Product[];
 
+  error: boolean = false;
+  errorMsg: string = "";
+
   constructor(private dbService : DatabaseService) { }
 
   ngOnInit() {
@@ -31,8 +34,8 @@ export class ShopListComponent implements OnInit {
     this.shopList = this.dbService.getShoppingAll();
     console.log("shopList",this.shopList);
 
+    this.dbService.initMeasures();
     this.measures = this.dbService.getMeasureAll();
-    console.log("measures",this.measures);
   }
 
   fieldChecker(){
@@ -42,6 +45,8 @@ export class ShopListComponent implements OnInit {
 
       let m = this.measures.filter(measure => measure.id == this.productMeasure)[0];
       console.log(m);
+      this.errorMsg = "";
+      this.error = false;
 
       let p = {id: this.newProducts.length, name: this.productName, initialQuantity: this.productQuantity, currentQuantity: this.productQuantity,
       alertQuantity: this.productQuantity/10, expiryDate: null, measure: m, notify: false};
@@ -51,7 +56,8 @@ export class ShopListComponent implements OnInit {
       this.productQuantity = null;
     }
     else{
-      alert("Remplir tous les champs correctement pour ajouter un produit")
+      this.error = true;
+      this.errorMsg = "Remplir tous les champs correctement pour ajouter un produit";
     }
   }
 

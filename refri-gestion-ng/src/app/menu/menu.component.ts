@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthentificationService } from '../services/authentification.service';
-import { Router, ActivatedRoute, RoutesRecognized } from '@angular/router';
-import { Title } from '@angular/platform-browser';
-import { filter, map } from 'rxjs/operators';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -19,16 +17,14 @@ export class MenuComponent implements OnInit {
   is_logged_in: boolean;
 
   constructor(
-    private titleService: Title,
     private authenService: AuthentificationService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute) {
-    this.fridgePNG = "../../assets/img/fridge.png";
-    this.cartPNG = "../../assets/img/cart.png";
-    this.listPNG = "../../assets/img/list.png";
-    this.accountPNG = "../../assets/img/account.png";
-    this.logoutPNG = "../../assets/img/logout.png";
-  }
+    private router: Router) {
+    this.fridgePNG = "assets/img/fridge.png";
+    this.cartPNG = "assets/img/cart.png";
+    this.listPNG = "assets/img/list.png";
+    this.accountPNG = "assets/img/account.png";
+    this.logoutPNG = "assets/img/logout.png";
+   }
 
   ngOnInit() {
     this.title = "Réfri'Gestion";

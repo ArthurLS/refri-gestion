@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row d-inline">
-    <button class="btn btn-danger float-right my-2" (click)="emptyList()">Vider la liste</button>
+    <button class="btn btn-danger float-right mb-3" (click)="emptyList()">Vider la liste</button>
   </div>
 
   <div class="row col-md-12 col-12">
@@ -11,7 +11,7 @@
             <input class="col-md-12 col-12 inputPadding" type="text" [(ngModel)]="productName" placeholder="Nom...">
           </td>
           <td class="col-md-6 col-6">
-            <input class="col-md-6 col-6 inputPadding"  min="0" type="number" [(ngModel)]="productQuantity">
+            <input class="col-md-6 col-6 inputPadding" placeholder="Quantité..." min="0" type="number" [(ngModel)]="productQuantity">
             <select class="col-md-6 col-6 inputPadding" [(ngModel)]="productMeasure">
               <option *ngFor="let measure of measures" value="{{measure.id}}">{{measure.name}}</option>
             </select>
@@ -32,7 +32,11 @@
       </tbody>
     </table>
   </div>
-
+  <div class="row text-center text-danger">
+    <ngb-alert *ngIf="error" (close)="error = false" type="danger" class="offset-2 col-8 text-center">
+      {{errorMsg}}
+    </ngb-alert>
+  </div>
   <div class="row">
     <button class="btn btn-primary mx-auto d-block" id="button_confirm" (click)="confirmChanges()">Confirmer vos changements</button>
   </div>

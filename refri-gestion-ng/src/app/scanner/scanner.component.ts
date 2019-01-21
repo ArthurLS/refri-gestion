@@ -29,31 +29,24 @@ export class ScannerComponent implements OnInit {
 
   ngOnInit() {
     this.initMeasures();
-    this.belloff = "../../assets/img/belloff.png";
-    this.bellon = "../../assets/img/bellon.png";
+    this.belloff = "assets/img/belloff.png";
+    this.bellon = "assets/img/bellon.png";
 
     // set the default parameter of notify
     this.authenService.currentUser.subscribe(user => {
       this.notify = user.notifyByDefault;
     })
-    
-    console.log("get",this.dbService.getProductAll())
-  }
-
-  initMeasures(){
-    var measure = {id: 1, name: 'qte', graduation: 1};
-    var measure2 = {id: 4, name: 'L', graduation: 1};
-    var measure3 = {id: 3, name: 'g', graduation: 5};
-    this.measures.push(measure);
-    this.measures.push(measure2);
-    this.measures.push(measure3);
-
-    this.productMeasure = measure;
 
     this._success.subscribe((message) => this.successLog = message);
     this._success.pipe(
       debounceTime(2000)
     ).subscribe(() => this.successLog = null);
+  }
+
+  initMeasures(){
+    this.productMeasure = new Measure(0,"",1);
+    this.dbService.initMeasures();
+    this.measures = this.dbService.getMeasureAll();
   }
 
   changeBell(){
@@ -63,7 +56,7 @@ export class ScannerComponent implements OnInit {
   addProductToFridge(){
     if(this.productName!=null && this.productName!=""
       && this.productQuantity!=null && this.productQuantity > 0
-      && this.productMeasure!= null
+      && this.productMeasure!= null && this.productMeasure.name!==""
       && this.productDate!=null){
 
         let p = {id:-1, name:this.productName, initialQuantity: this.productQuantity, currentQuantity: this.productQuantity,

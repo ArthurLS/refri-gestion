@@ -2,3 +2,7 @@ img{
   height: 45px;
   width: 45px;
 }
+
+.little_marge{
+  margin-bottom: 1rem;
+}
