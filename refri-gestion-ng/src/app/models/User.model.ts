@@ -4,6 +4,6 @@ export class User {
     public email: string,
     public name: string,
     public password: string,
-    public notifByDefault: boolean
+    public notifyByDefault: boolean
   ) {}
 }

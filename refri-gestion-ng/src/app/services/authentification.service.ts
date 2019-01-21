@@ -8,70 +8,82 @@ import { DatabaseService } from './database.service';
 })
 
 export class AuthentificationService {
-  private user = new BehaviorSubject<User>(new User(-1, '', '','', true))
-  private logger =new BehaviorSubject<boolean>(localStorage.getItem('currentUser') != null);
+  private user = new BehaviorSubject<User>(new User(-1, '', '', '', true))
+  private logger = new BehaviorSubject<boolean>(localStorage.getItem('currentUser') != null);
 
-  current_user = this.user.asObservable();
+  currentUser = this.user.asObservable();
 
-  constructor(private databaseService: DatabaseService) {}
+  constructor(private databaseService: DatabaseService) { }
 
-  public login(email: string, password: string): boolean{    
-    // this.changeUser();
-    // localStorage.setItem('currentUser', JSON.stringify(user))
-    let user = new User(-1, email, '', password, false);
-    console.log('user final', user);
-    if(user != null){
+  /**
+   * @returns true if the user is logging, false otherwise 
+   */
+  public async login(email: string, password: string): Promise<boolean> {
+    // wait the promise which return the user and check the password
+    let user = await this.databaseService.getUser(email);
+    if (user != null && user.password == password) {
       this.user.next(user);
-      localStorage.setItem('currentUser', email);
+      localStorage.setItem('currentUser', JSON.stringify(user))
       this.logger.next(true);
-      return true
-    }else{
-      console.log('ici')
-      return false
-    }
-
-    // this.changeIsAuthenticated(true);
-  }
-
-  public logup(user: User): boolean{
-    // TODO uncomment when the add user take a user.
-    if(this.alreadyExist(user)){
-      this.databaseService.addUser(user);
       return true;
-    }else{
+    } else {
       return false;
     }
-    
+  }
+
+  public async logup(newUser: User): Promise<boolean> {
+    // check if a user with the same email already exists
+    let result = await this.alreadyExists(newUser.email);
+    if (result) {
+      return false;
+    } else {
+      this.databaseService.addUser(newUser);
+      return true;
+    }
+    return result;
   }
 
   /** Asynchronous function to know if the user is connected
   */
-  public isLoggedObs(): Observable<boolean>{
+  public isLoggedObs(): Observable<boolean> {
     return this.logger.asObservable();
   }
 
   /** Synchronous function to know if the user is connected,
    * but prefered the asynchrone version isLoggedObs()
    */
-  public isLogged():boolean{
+  public isLogged(): boolean {
     return localStorage.getItem('currentUser') != null
   }
 
-  public logout(): void{
-    let user: User;
-    user = new User(-1, '', '','', true);
-    this.changeUser(user);
+  public logout(): void {
+    let emptyUser: User;
+    emptyUser = new User(-1, '', '', '', true);
+    this.user.next(emptyUser);
     localStorage.removeItem('currentUser');
     this.logger.next(false);
   }
 
-  public alreadyExist(user:User):boolean{
-    // TODO make verification with database
-    return true;
+  /**
+   *@returns true if the user already exists, false otherwise
+   */
+  public async alreadyExists(email: string): Promise<boolean> {
+    // wait the promise to be resolve before returing the result
+    let user = await this.databaseService.getUser(email);
+    return user != null;
   }
 
-  changeUser(newUser): void{
-    this.user.next(newUser);
+  public async changeUser(newUser: User): Promise<boolean> {
+    let userDB = await this.databaseService.getUser(newUser.email)
+    if(newUser.id == userDB.id){
+      this.databaseService.updateUser(newUser).then(() => {
+        this.user.next(newUser);
+        localStorage.setItem('currentUser', JSON.stringify(newUser))
+      })
+      return true;
+    }else{
+      return false;
+    }
+      
   }
-
 }

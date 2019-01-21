@@ -2,8 +2,8 @@
   <div class="row">
     <p>Paramètres</p>
   </div>
-  <div [hidden]="!has_msg" class="row">
-    <p>{{error_msg}}</p>
+  <div [hidden]="!has_an_msg" class="row">
+    <p>{{msg}}</p>
   </div>
   <div class="row">
     <input placeholder="Email" [(ngModel)]="email">
@@ -22,7 +22,7 @@
   </div>
   <div class="row">
     <label class="switch">
-      <input type="checkbox" [(ngModel)]="notif_by_default">
+      <input type="checkbox" [(ngModel)]="notify_by_default">
       <span class="slider round"></span>
     </label>
     <p>
