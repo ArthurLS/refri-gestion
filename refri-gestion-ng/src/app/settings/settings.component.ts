@@ -43,20 +43,19 @@ export class SettingsComponent implements OnInit {
   valid(){
     if(this.email == null ||
       this.name == null ||
-      this.old_password == null ||
-      this.new_password == null ||
-      this.new_confirmed_password == null ||
       this.notify_by_default == null){
       this.has_an_msg = true;
       this.msg = "Champs vides."
     }
-    else if(this.old_password != this.current_password){
+    else if(this.old_password != null && this.old_password != this.current_password){
       this.has_an_msg = true;
       this.msg = "Mot de passe incorrect.";
-    }else if(this.new_password != this.new_confirmed_password){
+    }else if(this.new_password != null && this.new_confirmed_password == null ||
+      this.new_password == null && this.new_confirmed_password != null ||
+      this.new_password != this.new_confirmed_password){
       this.has_an_msg = true;
-      this.msg = "Mot de passe incorrect.";
-    }else{    
+      this.msg = "Mots de passe incorrects.";
+    }else{
       let new_user = new User(this.id, this.email, this.name, this.new_password, this.notify_by_default)
       this.authenService.changeUser(new_user).then(result =>{
         if(result){

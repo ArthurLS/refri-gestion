@@ -18,11 +18,11 @@ export class MenuComponent implements OnInit {
   constructor(
     private authenService: AuthentificationService,
     private router: Router) {
-    this.fridgePNG = "../../assets/img/fridge.png";
-    this.cartPNG = "../../assets/img/cart.png";
-    this.listPNG = "../../assets/img/list.png";
-    this.accountPNG = "../../assets/img/account.png";
-    this.logoutPNG = "../../assets/img/logout.png";
+    this.fridgePNG = "assets/img/fridge.png";
+    this.cartPNG = "assets/img/cart.png";
+    this.listPNG = "assets/img/list.png";
+    this.accountPNG = "assets/img/account.png";
+    this.logoutPNG = "assets/img/logout.png";
    }
 
   ngOnInit() {

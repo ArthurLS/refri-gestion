@@ -1,35 +1,49 @@
 <div class="container">
-  <div class="row">
-    <p>Paramètres</p>
+  <div class="row text-center text-danger little_marge">
+    <ngb-alert *ngIf="has_an_msg" (close)="has_an_msg = false" type="danger" class="offset-2 col-8 text-center">
+      {{msg}}
+    </ngb-alert>
   </div>
-  <div [hidden]="!has_an_msg" class="row">
-    <p>{{msg}}</p>
+  <div class="form-group row little_marge">
+    <label for="emailSettings" class="col-5">Email</label>
+    <div class="col-7">
+      <input class="col-12 inputPadding" type="email" id="emailSettings" placeholder="Email" [(ngModel)]="email">
+    </div>
   </div>
-  <div class="row">
-    <input placeholder="Email" [(ngModel)]="email">
+  <div class="form-group row">
+    <label for="usernameSettings" class="col-5">Nom d'utilisateur</label>
+    <div class="col-7">
+      <input class="col-12 inputPadding" type="text" id="usernameSettings" placeholder="Nom d'utilisateur" [(ngModel)]="name">
+    </div>
   </div>
-  <div class="row">
-    <input placeholder="Nom d'utilisateur" [(ngModel)]="name">
+  <div class="form-group row">
+    <label for="passwordSettings1" class="col-5">Ancien mot de passe</label>
+    <div class="col-7">
+      <input class="col-12 inputPadding" type="password" placeholder="Ancien mot de passe" id="passwordSettings1" [(ngModel)]="old_password">
+    </div>
   </div>
-  <div class="row">
-    <input type="password" placeholder="ancien mot de passe" [(ngModel)]="old_password">
+  <div class="form-group row">
+    <label for="passwordSettings2" class="col-5">Nouveau mot de passe</label>
+    <div class="col-7">
+      <input class="col-12 inputPadding" type="password" placeholder="Nouveau mot de passe" id="passwordSettings2" [(ngModel)]="new_password">
+    </div>
   </div>
-  <div class="row">
-    <input type="password" placeholder="Nouveau mot de passe" [(ngModel)]="new_password">
+  <div class="form-group row">
+    <label for="passwordSettings3" class="col-5">Confirmer nouveau mot de passe</label>
+    <div class="col-7">
+      <input class="col-12 inputPadding" type="password" placeholder="Confirmer nouveau mot de passe" id="passwordSettings3" [(ngModel)]="new_confirmed_password">
+    </div>
   </div>
-  <div class="row">
-    <input type="password" placeholder="Confirmer nouveau mot de passe" [(ngModel)]="new_confirmed_password">
-  </div>
-  <div class="row">
+  <div class="form-group row">
     <label class="switch">
       <input type="checkbox" [(ngModel)]="notify_by_default">
       <span class="slider round"></span>
     </label>
-    <p>
+    <p class="col-8">
       Activer la notification d'un produit lors de l'ajout.
     </p>
   </div>
   <div class="row">
-    <button type="button" class="btn btn-primary" (click)="valid()">Valider</button>
+    <button type="button" class="btn btn-primary mx-auto d-block" (click)="valid()">Valider</button>
   </div>
 </div>

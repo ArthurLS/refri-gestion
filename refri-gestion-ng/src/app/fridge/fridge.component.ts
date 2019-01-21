@@ -35,8 +35,8 @@ export class FridgeComponent implements OnInit {
   constructor(private dbService : DatabaseService) {
     this.unsavedProd = [];
     this.deletedProd = [];
-    this.belloff = "../../assets/img/belloff.png";
-    this.bellon = "../../assets/img/bellon.png";
+    this.belloff = "assets/img/belloff.png";
+    this.bellon = "assets/img/bellon.png";
 
   }
 

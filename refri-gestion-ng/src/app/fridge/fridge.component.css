@@ -9,3 +9,8 @@ img{
 .red{
   background: rgba(255, 0, 0, 0.5);
 }
+
+.inputPadding{
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
