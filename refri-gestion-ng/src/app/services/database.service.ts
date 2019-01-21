@@ -14,6 +14,7 @@ export class DatabaseService {
 
   constructor() {
 
+    var that = this;
 
     this.db.openDatabase(1, (evt) => {
 
@@ -44,6 +45,7 @@ export class DatabaseService {
       shoppingStore.createIndex("expiryDate", "expiryDate", { unique: false });
       fridgeStore.createIndex("measure", "measure", { unique: false });
       shoppingStore.createIndex("notify", "notify", { unique: false });
+
     })
   }
 
@@ -68,6 +70,7 @@ export class DatabaseService {
   getMeasureAll(): Array<Measure> {
     var that = this;
     let measures: Array<Measure> = [];
+
     this.db.openDatabase(1).then(function () {
       that.db.getAll('measure').then((measure) => {
         measures.push(...measure);
@@ -83,6 +86,28 @@ export class DatabaseService {
     return this.db.openDatabase(1).then(function () {
       that.db.delete('measure', index)
     })
+  }
+
+  /**
+  * init measures in database if not already exist
+  */
+  initMeasures(){
+    var that = this;
+    this.db.openDatabase(1).then(function () {
+      that.db.getAll('measure').then((measure) => {
+        if(measure.length==0){
+          that.addMeasure(new Measure(1,"qte",1));
+          that.addMeasure(new Measure(2,"g",10));
+          that.addMeasure(new Measure(3,"kg",1));
+          that.addMeasure(new Measure(4,"L",1));
+          that.addMeasure(new Measure(5,"cL",5));
+          that.addMeasure(new Measure(6,"mL",50));
+        }
+      }), (error) => {
+        console.log("init error");
+      }
+    });
+
   }
 
   /**
@@ -181,7 +206,6 @@ export class DatabaseService {
         console.log("get users error");
       }
     })
-    console.log(users);
     return users;
   }
 
@@ -233,7 +257,6 @@ export class DatabaseService {
     let shopList: Array<Product> = [];
     this.db.openDatabase(1).then(function () {
       that.db.getAll('shoppingList').then((shop) => {
-        console.log("fin prod all");
         shopList.push(...shop);
       }), (error) => {
         console.log("get error");
