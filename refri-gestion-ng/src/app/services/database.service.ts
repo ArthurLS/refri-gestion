@@ -245,6 +245,16 @@ export class DatabaseService {
     return shopList;
   }
 
+  async getShopping(name: string): Promise<Product>{
+    let promise = await this.db.getByIndex('shoppingList', 'name', name).then(product => {
+      console.log('shopping', product);
+      return product;
+    }, error => {
+      console.log("get user error");
+    })
+    return promise;
+  }
+
   updateShopping(product: Product) {
     var that = this;
     return this.db.openDatabase(1).then(function () {
