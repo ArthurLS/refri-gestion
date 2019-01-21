@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthentificationService } from '../services/authentification.service';
-import { Router } from '@angular/router';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
+  title: string;
   fridgePNG: string;
   cartPNG: string;
   listPNG: string;
@@ -26,15 +27,22 @@ export class MenuComponent implements OnInit {
    }
 
   ngOnInit() {
-    // this.is_logged_in = this.authenService.isLoggedIn()
+    this.title = "Réfri'Gestion";
+    // check if the user is log
     this.authenService.isLoggedObs().subscribe(isLoggedIn =>
-      this.is_logged_in = isLoggedIn)
+      this.is_logged_in = isLoggedIn
+    );
   }
 
-  logout(){
+  logout() {
     this.authenService.logout();
+    this.changeTitle("Réfri\'Gestion");
     // go back to home page
     this.router.navigate(['']);
+  }
+
+  changeTitle(newTitle: string){
+    this.title = newTitle;
   }
 
 }

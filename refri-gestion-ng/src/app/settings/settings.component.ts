@@ -39,7 +39,7 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
 
   }
-
+  // TODO allow to just change notify
   valid(){
     if(this.email == null ||
       this.name == null ||

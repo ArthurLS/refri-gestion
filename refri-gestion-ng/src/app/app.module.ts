@@ -37,7 +37,7 @@ import { HttpClientModule } from '@angular/common/http';
     NgbModule,
     HttpClientModule
   ],
-  providers: [
+  providers:[
     AuthGuard,
     AlreadyAuthGuard
   ],

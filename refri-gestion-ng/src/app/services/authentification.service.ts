@@ -21,6 +21,7 @@ export class AuthentificationService {
   public async login(email: string, password: string): Promise<boolean> {
     // wait the promise which return the user and check the password
     let user = await this.databaseService.getUser(email);
+    console.log('user', user);
     if (user != null && user.password == password) {
       this.user.next(user);
       localStorage.setItem('currentUser', JSON.stringify(user))
@@ -37,10 +38,10 @@ export class AuthentificationService {
     if (result) {
       return false;
     } else {
-      this.databaseService.addUser(newUser);
-      return true;
+      return this.databaseService.addUser(newUser).then(result => {
+        return result
+      });
     }
-    return result;
   }
 
   /** Asynchronous function to know if the user is connected
@@ -75,15 +76,15 @@ export class AuthentificationService {
 
   public async changeUser(newUser: User): Promise<boolean> {
     let userDB = await this.databaseService.getUser(newUser.email)
-    if(newUser.id == userDB.id){
+    if (newUser.id == userDB.id) {
       this.databaseService.updateUser(newUser).then(() => {
         this.user.next(newUser);
         localStorage.setItem('currentUser', JSON.stringify(newUser))
       })
       return true;
-    }else{
+    } else {
       return false;
     }
-      
+
   }
 }

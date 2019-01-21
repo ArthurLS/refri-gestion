@@ -72,6 +72,7 @@ export class FridgeComponent implements OnInit {
 
   saveChanges(){
     this.unsavedProd.forEach(elem => {
+      this.addShopList(elem);
       this.dbService.updateProduct(elem);
     });
     this.unsavedProd = [];
@@ -122,5 +123,16 @@ export class FridgeComponent implements OnInit {
 
   }
 
+  addShopList(product:Product){
+    if(product.currentQuantity <= product.alertQuantity){
+      // check is the product is already in the shopping list
+      let promise = this.dbService.getShopping(product.name);
+      promise.then(productDb => {
+        if(productDb == null){
+          this.dbService.addShopping(product);
+        }
+      })
+    }
+  }
 
 }
