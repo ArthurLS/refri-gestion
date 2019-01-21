@@ -1,20 +1,28 @@
 <div class="container">
-  <div class="row"> 
-    <p>Bienvenue sur Réfri'Gestion</p>
+  <div class="row text-center">
+    <p class="col-12">Bienvenue sur Réfri'Gestion</p>
   </div>
-  <div [hidden]="!has_an_error" class="row">
-    <p>{{error_msg}}</p>
+  <div class="row text-center text-danger little_marge">
+    <ngb-alert *ngIf="has_an_error" (close)="has_an_error = false" type="danger" class="offset-2 col-8 text-center">
+      {{error_msg}}
+    </ngb-alert>
+  </div>
+  <div class="row form-group little_marge">
+    <label for="emailLogin" class="col-5">Email</label>
+    <div class="col-7">
+      <input class="col-12 inputPadding" id="emailLogin" type="email" placeholder="Email" [(ngModel)]="email">
+    </div>
+  </div>
+  <div class="row form-group">
+    <label for="passwordLogin" class="col-5">Mot de passe</label>
+    <div class="col-7">
+      <input class="col-12 inputPadding" id="passwordLogin" type="password" placeholder="Mot de passe" [(ngModel)]="password">
+    </div>
   </div>
   <div class="row">
-    <input placeholder="Email" [(ngModel)]="email">
-  </div> 
-  <div class="row">
-    <input type="password" placeholder="Mot de passe" [(ngModel)]="password">
+    <button type="button" class="btn btn-primary mx-auto d-block" (click)="login()">Valider</button>
   </div>
   <div class="row">
-    <button type="button" class="btn btn-primary" (click)="login()">Valider</button>
-  </div>
-  <div class="row">
-    <a routerLink="/logup">Créer un compte</a>
+    <a class="mx-auto d-block" routerLink="/logup">Créer un compte</a>
   </div>
 </div>
