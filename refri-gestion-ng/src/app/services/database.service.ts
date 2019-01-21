@@ -1,13 +1,8 @@
 import { User } from './../models/User.model';
 import { Measure } from './../models/Measure.model';
-import { Observable, of, from } from 'rxjs';
 import { Product } from '../models/Product.model';
 import { Injectable } from '@angular/core';
 import { AngularIndexedDB } from 'angular2-indexeddb';
-import { USE_VALUE } from '@angular/core/src/di/injector';
-import { resolve } from 'dns';
-import { async } from '@angular/core/testing';
-import { userInfo } from 'os';
 
 @Injectable({
   providedIn: 'root'
