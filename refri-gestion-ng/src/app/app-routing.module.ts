@@ -16,7 +16,6 @@ const routes: Routes = [
   {path: 'settings', canActivate: [AuthGuard] ,component: SettingsComponent},
   {path: 'shop-list', canActivate: [AuthGuard] ,component: ShopListComponent},
   {path: 'logup', canActivate: [AlreadyAuthGuard], component: LogupComponent}
-
 ];
 
 @NgModule({

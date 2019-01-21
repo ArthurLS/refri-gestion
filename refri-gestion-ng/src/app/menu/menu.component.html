@@ -1,21 +1,24 @@
+<h1 style="text-align: center">
+  {{ title }}
+</h1>
 <nav [hidden]="!is_logged_in" class="navbar navbar-expand navbar-light bg-light">
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav nav-fill w-100">
-        <li class="nav-item">
-          <a routerLink="/fridge" class="nav-link"><img [src]="fridgePNG"></a>
-        </li>
-        <li class="nav-item">
-          <a routerLink="/scanner" class="nav-link"><img [src]="cartPNG"></a>
-        </li>
-        <li class="nav-item">
-          <a routerLink="/shop-list" class="nav-link"><img [src]="listPNG"></a>
-        </li>
-        <li class="nav-item">
-          <a routerLink="/settings" class="nav-link"><img [src]="accountPNG"></a>
-        </li>
-        <li class="nav-item">
-          <a (click)="logout()" class="nav-link"><img [src]="logoutPNG"></a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav nav-fill w-100">
+      <li class="nav-item">
+        <a routerLink="/fridge" (click)="changeTitle('Réfrigérateur')" class="nav-link"><img [src]="fridgePNG"></a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/scanner" (click)="changeTitle('Ajouter un Produit')" class="nav-link"><img [src]="cartPNG"></a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/shop-list" (click)="changeTitle('Liste de course')" class="nav-link"><img [src]="listPNG"></a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/settings" (click)="changeTitle('Paramètres')" class="nav-link"><img [src]="accountPNG"></a>
+      </li>
+      <li class="nav-item">
+        <a (click)="logout()" class="nav-link"><img [src]="logoutPNG"></a>
+      </li>
+    </ul>
+  </div>
+</nav>

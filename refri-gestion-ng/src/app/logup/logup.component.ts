@@ -49,11 +49,16 @@ export class LogupComponent implements OnInit {
       let promise = this.authenService.logup(this.new_user)
       promise.then(result => {
         if (result) {
-          console.log('email: ', this.email, 'username: ', this.username, 'password: ', this.password, 'confirmed_password', this.confirmed_password);
+          //console.log('email: ', this.email, 'username: ', this.username, 'password: ', this.password, 'confirmed_password', this.confirmed_password);
           this.has_an_error = false;
           this.error_msg = "";
-          // go back to home page
-          this.router.navigate(['']);
+          // log user
+          this.authenService.login(this.email, this.password).then(isLog => {
+            if(isLog){
+              // go back to home page
+              this.router.navigate(['']);
+            }
+          });
         } else {
           this.has_an_error = true;
           this.error_msg = "Impossible de créer ce compte.";

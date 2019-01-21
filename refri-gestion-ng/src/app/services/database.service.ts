@@ -4,6 +4,7 @@ import { Product } from '../models/Product.model';
 import { Injectable } from '@angular/core';
 import { AngularIndexedDB } from 'angular2-indexeddb';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -156,15 +157,18 @@ export class DatabaseService {
   /**
    * adds a user to database, return promise
    */
-  addUser(user: User) {
+  async addUser(user: User): Promise<boolean> {
     var that = this;
-    return this.db.openDatabase(1).then(function () {
-      that.db.add('user', { name: user.name, email: user.email, password: user.password, notifyByDefault: user.notifyByDefault }).then(() => {
-        console.log("added succes");
-      }), (error) => {
-        console.log("added error");
-      }
+    // this.db.openDatabase(1).then(() =>{
+    let promise = await this.db.add('user', { name: user.name, email: user.email, password: user.password, notifyByDefault: user.notifyByDefault }).then(() => {
+      console.log("added succes");
+      return true;
+    }, (error) => {
+      console.log("added error");
+      return false;
     })
+    //})
+    return promise
   }
 
   /**
@@ -185,8 +189,8 @@ export class DatabaseService {
     return users;
   }
 
-  async getUser(email: string): Promise<User>{
-    let promise = await this.db.getByIndex('user', 'email', email).then(user =>{
+  async getUser(email: string): Promise<User> {
+    let promise = await this.db.getByIndex('user', 'email', email).then(user => {
       return user;
     }, error => {
       console.log("get user error");
@@ -196,7 +200,6 @@ export class DatabaseService {
 
   updateUser(user: User) {
     var that = this;
-    console.log('user', user)
     return this.db.openDatabase(1).then(function () {
       that.db.update('user', user).then(() => {
         console.log("userUpdated");
