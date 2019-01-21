@@ -206,7 +206,6 @@ export class DatabaseService {
         console.log("get users error");
       }
     })
-    console.log(users);
     return users;
   }
 
@@ -258,7 +257,6 @@ export class DatabaseService {
     let shopList: Array<Product> = [];
     this.db.openDatabase(1).then(function () {
       that.db.getAll('shoppingList').then((shop) => {
-        console.log("fin prod all");
         shopList.push(...shop);
       }), (error) => {
         console.log("get error");
