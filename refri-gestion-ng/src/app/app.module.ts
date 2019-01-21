@@ -15,6 +15,7 @@ import { LogupComponent } from './logup/logup.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { AlreadyAuthGuard } from './services/alreadyAuth-guard.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    HttpClientModule
   ],
   providers: [
     AuthGuard,
