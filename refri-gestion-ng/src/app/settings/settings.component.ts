@@ -24,7 +24,7 @@ export class SettingsComponent implements OnInit {
   msg: string;
 
   constructor(private authenService: AuthentificationService, private dbService : DatabaseService) {
-    this.has_an_msg = false;
+   /*  this.has_an_msg = false;
     this.msg = "";
     authenService.currentUser.subscribe(user => {
       this.id = user.id;
@@ -33,14 +33,14 @@ export class SettingsComponent implements OnInit {
       this.name = user.name;
       this.notify_by_default = user.notifyByDefault;
       console.log('notify', this.notify_by_default);
-    })
+    }) */
   }
 
   ngOnInit() {
 
   }
   // TODO allow to just change notify
-  valid(){
+  /* valid(){
     if(this.email == null ||
       this.name == null ||
       this.notify_by_default == null){
@@ -67,6 +67,6 @@ export class SettingsComponent implements OnInit {
         }
       })
     }
-  }
+  } */
 
 }

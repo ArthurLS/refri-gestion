@@ -21,7 +21,7 @@ export class AuthentificationService {
   public async login(email: string, password: string): Promise<boolean> {
     // wait the promise which return the user and check the password
     let user = await this.databaseService.getUser(email);
-    console.log('user', user);
+    //console.log('user', user);
     if (user != null && user.password == password) {
       this.user.next(user);
       localStorage.setItem('currentUser', JSON.stringify(user))

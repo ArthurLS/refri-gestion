@@ -15,6 +15,9 @@ import { LogupComponent } from './logup/logup.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { AlreadyAuthGuard } from './services/alreadyAuth-guard.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ChangePasswordComponent } from './settings/change-password/change-password.component';
+import { ChangeCredentialsComponent } from './settings/change-credentials/change-credentials.component';
+import { ChangeNotifyComponent } from './settings/change-notify/change-notify.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SettingsComponent,
     MenuComponent,
     LogupComponent,
-    FilterProductPipePipe
+    FilterProductPipePipe,
+    ChangePasswordComponent,
+    ChangeCredentialsComponent,
+    ChangeNotifyComponent
   ],
   imports: [
     FormsModule,
