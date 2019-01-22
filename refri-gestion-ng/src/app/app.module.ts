@@ -10,14 +10,15 @@ import { ScannerComponent } from './scanner/scanner.component';
 import { FridgeComponent } from './fridge/fridge.component';
 import { ShopListComponent } from './shop-list/shop-list.component';
 import { SettingsComponent } from './settings/settings.component';
+import { ChangePasswordComponent } from './settings/change-password/change-password.component';
+import { ChangeCredentialsComponent } from './settings/change-credentials/change-credentials.component';
+import { ChangeNotifyComponent } from './settings/change-notify/change-notify.component';
 import { MenuComponent } from './menu/menu.component';
 import { LogupComponent } from './logup/logup.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { AlreadyAuthGuard } from './services/alreadyAuth-guard.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ChangePasswordComponent } from './settings/change-password/change-password.component';
-import { ChangeCredentialsComponent } from './settings/change-credentials/change-credentials.component';
-import { ChangeNotifyComponent } from './settings/change-notify/change-notify.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ChangeNotifyComponent } from './settings/change-notify/change-notify.co
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    HttpClientModule
   ],
   providers:[
     AuthGuard,
