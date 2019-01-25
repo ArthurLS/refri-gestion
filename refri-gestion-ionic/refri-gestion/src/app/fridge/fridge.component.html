@@ -1,49 +1,47 @@
 <div class="container">
-    <div class="row">
-        <input [(ngModel)]="search_item" placeholder="Search" class="col-6 inputPadding">
-  
-        <select placeholder="Tri" class="col-4 offset-2 custom-select"
-                (change)="sortChange($event)">
-          <option *ngFor="let sort of sorts" [value]="sort" class="form-control">
-            {{sort}}
-          </option>
-        </select>
-  
-    </div>
-  
-    <div class="row col-12">
-  
-      <table class="table container">
-        <tbody>
-          <tr *ngFor="let prod of foodList | filterProductPipe:search_item" class="row" [class.green]="unsavedProd.includes(prod)" [class.red]="deletedProd.includes(prod)">
-            <td class="col-md-1 col-3">
-                <div *ngIf="prod.notify; else elseBlock" (click)="bellSwitch(prod)"><img [src]="bellon"></div>
-                <ng-template #elseBlock ><img [src]="belloff" (click)="bellSwitch(prod)"></ng-template>
-            </td>
-  
-            <td class="col-md-3 col-3" style="white-space:nowrap">
-              <div class="row">
-                {{prod.name}}
-              </div>
-              <div class="row">
-                {{prod.expiryDate.getDate()}}/{{prod.expiryDate.getMonth()+1}}/{{prod.expiryDate.getFullYear()}}
-              </div>
-            </td>
-  
-            <td class="col-md-6 col-5">
-              <input class="col-8 inputPadding" type="number" min="0" (change)="quantityChange(prod)" [(ngModel)]="prod.currentQuantity" step={{prod.measure.graduation}}>
-              {{prod.measure.name}}
-            </td>
-            <td class="col-md-2 col-1">
-              <button (click)="addDeleted(prod)" class="btn btn-danger">x</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-  
-    </div>
-    <div class="col-6 offset-3 col-md-4 offset-md-4">
-      <button (click)="saveChanges()" class="btn btn-primary btn-block">Confirmer</button>
-    </div>
+  <div class="row">
+      <input [(ngModel)]="search_item" placeholder="Search" class="col-6 inputPadding">
+
+      <select placeholder="Tri" class="col-4 offset-2 custom-select"
+              (change)="sortChange($event)">
+        <option *ngFor="let sort of sorts" [value]="sort" class="form-control">
+          {{sort}}
+        </option>
+      </select>
+
   </div>
-  
+
+  <div class="row table-row">
+    <table class="table container">
+      <tbody>
+        <tr *ngFor="let prod of foodList | filterProductPipe:search_item" class="row" [class.green]="unsavedProd.includes(prod)" [class.red]="deletedProd.includes(prod)">
+          <td class="col-md-1 col-2">
+              <div *ngIf="prod.notify; else elseBlock" (click)="bellSwitch(prod)"><img [src]="bellon"></div>
+              <ng-template #elseBlock ><img [src]="belloff" (click)="bellSwitch(prod)"></ng-template>
+          </td>
+
+          <td class="col-md-3 col-3" style="white-space:nowrap">
+            <div class="row  col-12">
+              {{prod.name}}
+            </div>
+            <div class="row  col-12">
+              {{prod.expiryDate.getDate()}}/{{prod.expiryDate.getMonth()+1}}
+            </div>
+          </td>
+
+          <td class="col-md-6 col-5">
+            <input class="col-8 inputPadding" type="number" min="0" (change)="quantityChange(prod)" [(ngModel)]="prod.currentQuantity" step={{prod.measure.graduation}}>
+            {{prod.measure.name}}
+          </td>
+          <td class="col-md-2 col-2">
+            <button (click)="addDeleted(prod)" class="btn btn-danger">x</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="col-6 offset-3 col-md-4 offset-md-4">
+    <button (click)="saveChanges()" class="btn btn-primary btn-block">Confirmer</button>
+  </div>
+</div>

@@ -1,4 +1,6 @@
 <div class="container">
+  <input class="" type="text" [(ngModel)]="barCode">
+  <button (click)="scanBarCode()">Valider</button>
 
   <div class="row form-group">
     <button class="btn btn-primary mx-auto d-block" (click)="scan()">Scanner</button>

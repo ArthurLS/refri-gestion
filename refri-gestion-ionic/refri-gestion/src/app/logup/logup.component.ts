@@ -24,7 +24,6 @@ export class LogupComponent implements OnInit {
 
   constructor(
     private authenService: AuthentificationService,
-    private databaseService: DatabaseService,
     private router: Router) {
   }
 
