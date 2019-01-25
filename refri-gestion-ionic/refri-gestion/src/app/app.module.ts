@@ -25,6 +25,8 @@ import { FilterProductPipePipe } from './filter-product--pipe.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {LocalNotifications} from "@ionic-native/local-notifications/ngx";
+
 
 
 @NgModule({
@@ -40,14 +42,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    
     NgbModule,
     HttpClientModule],
   providers: [
+    LocalNotifications,
     AuthGuard,
     AlreadyAuthGuard,
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    
   ],
   bootstrap: [AppComponent]
 })

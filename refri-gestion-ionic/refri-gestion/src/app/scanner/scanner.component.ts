@@ -5,6 +5,7 @@ import { DatabaseService } from '../services/database.service';
 import { AuthentificationService } from '../services/authentification.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 @Component({
   selector: 'app-scanner',
@@ -26,7 +27,7 @@ export class ScannerComponent implements OnInit {
   errorLog: string = null;
   successLog: string = null;
 
-  constructor(private authenService: AuthentificationService, private dbService : DatabaseService) { }
+  constructor(private localNotifications: LocalNotifications, private authenService: AuthentificationService, private dbService : DatabaseService) { }
 
   ngOnInit() {
     this.initMeasures();
@@ -71,6 +72,11 @@ export class ScannerComponent implements OnInit {
         this.productQuantity = null;
         this.productDate = null;
         this._success.next("Produit ajouté au frigo !");
+
+        this.localNotifications.schedule({
+          id: 1,
+          text: 'Single ILocalNotification',
+        });
       }
       else{
         this.errorLog="Remplir tous les champs pour ajouter un produit";
