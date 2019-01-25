@@ -5,6 +5,7 @@ import { DatabaseService } from '../services/database.service';
 import { AuthentificationService } from '../services/authentification.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { OpenFoodService } from '../services/open-food.service';
 
 @Component({
   selector: 'app-scanner',
@@ -22,15 +23,22 @@ export class ScannerComponent implements OnInit {
   productQuantity: number;
   productMeasure: Measure;
   productDate: string;
+  barCode: string;
   errorLog: string = null;
   successLog: string = null;
 
-  constructor(private authenService: AuthentificationService, private dbService : DatabaseService) { }
+  constructor(
+    private authenService: AuthentificationService,
+    private dbService : DatabaseService,
+    private openFoodService : OpenFoodService
+    ) { }
 
   ngOnInit() {
     this.initMeasures();
     this.belloff = "assets/img/belloff.png";
     this.bellon = "assets/img/bellon.png";
+    this.productDate = this.getTodayDate();
+    console.log('productDate', this.productDate);
 
     // set the default parameter of notify
     this.authenService.currentUser.subscribe(user => {
@@ -68,11 +76,30 @@ export class ScannerComponent implements OnInit {
         this.errorLog=null;
         this.productName = "";
         this.productQuantity = null;
-        this.productDate = null;
+        this.productDate = this.getTodayDate();
         this._success.next("Produit ajouté au frigo !");
       }
       else{
         this.errorLog="Remplir tous les champs pour ajouter un produit";
       }
+  }
+
+  scanBarCode(){
+    if(this.barCode && this.barCode.length > 7 ){
+      this.openFoodService.getProduct(this.barCode);
+    }
+  }
+
+  getTodayDate(): string{
+    let date = new Date();
+    let month = (date.getMonth() + 1).toString();
+    if(date.getMonth()<10){
+      month = "0" + month
+    }
+    let day = date.getDate().toString();
+    if(date.getDate()<10){
+      day = "0" + day;
+    }
+    return date.getFullYear().toString()+'-' + month +'-' + day
   }
 }

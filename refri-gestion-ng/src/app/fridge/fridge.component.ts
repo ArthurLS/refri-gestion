@@ -52,7 +52,7 @@ export class FridgeComponent implements OnInit {
   }
 
   quantityChange(prod: Product){
-    this.addUnsaved(prod);
+      this.addUnsaved(prod);
   }
 
   addUnsaved(product:Product){
@@ -124,7 +124,7 @@ export class FridgeComponent implements OnInit {
   }
 
   addShopList(product:Product){
-    if(product.currentQuantity <= product.alertQuantity){
+    if(product.currentQuantity <= product.alertQuantity && product.notify){
       // check is the product is already in the shopping list
       let promise = this.dbService.getShopping(product.name);
       promise.then(productDb => {

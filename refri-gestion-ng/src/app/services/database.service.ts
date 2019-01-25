@@ -82,6 +82,14 @@ export class DatabaseService {
     return measures;
   }
 
+
+  async getMeasure(name: string): Promise<Measure>{
+      let promise = this.db.getByIndex('measure', 'name', name).then((measure) => {
+        return measure;
+      })
+      return promise;
+  }
+
   removeMeasure(index: number) {
     var that = this;
     return this.db.openDatabase(1).then(function () {
