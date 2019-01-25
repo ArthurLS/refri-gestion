@@ -16,6 +16,9 @@
     "cordova-plugin-statusbar": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
     "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
@@ -25,14 +28,11 @@
     },
     "cordova-plugin-ionic-keyboard": {
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "phonegap-plugin-barcodescanner": {
+      "ANDROID_SUPPORT_V4_VERSION": "27.+",
+      "PACKAGE_NAME": "io.ionic.starter"
     }
   },
-  "dependent_plugins": {
-    "cordova-plugin-device": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
-    "cordova-plugin-badge": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    }
-  }
+  "dependent_plugins": {}
 }

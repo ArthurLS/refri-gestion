@@ -13,7 +13,9 @@ export class AuthentificationService {
 
   currentUser = this.user.asObservable();
 
-  constructor(private databaseService: DatabaseService) { }
+  constructor(private databaseService: DatabaseService) {
+    databaseService.initMeasures();
+   }
 
   /**
    * @returns true if the user is logging, false otherwise 

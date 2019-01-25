@@ -22,7 +22,7 @@
   "_resolved": "https://registry.npmjs.org/cordova-plugin-ionic-webview/-/cordova-plugin-ionic-webview-2.3.2.tgz",
   "_shasum": "f4b1d669cefe7d25cfe47cfc9c6fe820211b63fa",
   "_spec": "cordova-plugin-ionic-webview@^2.0.0",
-  "_where": "/home/anthony/OCI/refri-gestion/refri-gestion-ionic/refri-gestion",
+  "_where": "/refri-gestion/refri-gestion-ionic/refri-gestion",
   "author": {
     "name": "Ionic Team"
   },

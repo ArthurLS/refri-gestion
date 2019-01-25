@@ -26,19 +26,27 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {LocalNotifications} from "@ionic-native/local-notifications/ngx";
-
-
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 @NgModule({
-  declarations: [AppComponent, MenuComponent, FridgeComponent, LoginComponent, ScannerComponent, SettingsComponent,
+  declarations: [AppComponent,
+    MenuComponent,
+    FridgeComponent, 
+    LoginComponent,
+    ScannerComponent,
+    SettingsComponent,
     ChangePasswordComponent,
     ChangeCredentialsComponent,
     ChangeNotifyComponent,
     LogupComponent,
     FilterProductPipePipe,
-    ShopListComponent],
+    ShopListComponent,
+    ],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FormsModule,
+  imports: [BrowserModule, 
+    IonicModule.forRoot(), 
+    AppRoutingModule,
+    FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
