@@ -1,0 +1,12 @@
+.inputPadding{
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.green{
+  background: rgba(97, 209, 46, 0.5);
+}
+
+.red{
+  background: rgba(224, 49, 55, 0.5);
+}

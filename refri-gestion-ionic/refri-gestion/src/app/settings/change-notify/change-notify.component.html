@@ -1,0 +1,24 @@
+<div class="card">
+  <div class="card-header">
+    Changer paramètres de notifications
+  </div>
+  <div class="card-body">
+    <div class="row text-center text-danger">
+      <ngb-alert *ngIf="hasAnMsg" (close)="hasAnMsg = false" type="danger" class="offset-2 col-8 text-center">
+        {{msg}}
+      </ngb-alert>
+    </div>
+    <div class="form-group row">
+      <label class="switch">
+        <input type="checkbox" [(ngModel)]="notifyByDefault">
+        <span class="slider round"></span>
+      </label>
+      <p class="col-8">
+        Activer l'alerte sur un produit lors de son ajout.
+      </p>
+    </div>
+    <div class="row">
+      <button type="button" class="btn btn-primary mx-auto d-block" (click)="valid()">Valider</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row d-inline">
+    <button class="btn btn-danger float-right mb-3" (click)="emptyList()">Vider la liste</button>
+  </div>
+
+  <div class="row col-md-12 col-12">
+    <table class="table container">
+      <tbody>
+        <tr class="row">
+          <td class="col-md-4 col-4">
+            <input class="col-md-12 col-12 inputPadding" type="text" [(ngModel)]="productName" placeholder="Nom...">
+          </td>
+          <td class="col-md-6 col-6">
+            <input class="col-md-6 col-6 inputPadding" placeholder="Quantité..." min="0" type="number" [(ngModel)]="productQuantity">
+            <select class="col-md-6 col-6 inputPadding" [(ngModel)]="productMeasure">
+              <option *ngFor="let measure of measures" value="{{measure.id}}">{{measure.name}}</option>
+            </select>
+          </td>
+          <td class="col-md-2 col-2">
+            <button class="btn btn-primary" (click)="fieldChecker()">+</button>
+          </td>
+        </tr>
+        <tr *ngFor="let product of shopList" class="row" [class.green]="newProducts.includes(product) || changedProducts.includes(product)" [class.red]="deletedProducts.includes(product)">
+          <td class="col-md-4 col-4">{{product.name}}</td>
+          <td class="col-md-6 col-6" style="white-space:nowrap">
+            <input class="col-md-6 col-6 inputPadding" type="number" (change)="quantityChange(product)" step="{{product.measure.graduation}}" [(ngModel)]="product.initialQuantity"> {{product.measure.name}}
+          </td>
+          <td class="col-md-2 col-2">
+            <button class="btn btn-danger" (click)="addDeleted(product)">x</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row text-center text-danger">
+    <ngb-alert *ngIf="error" (close)="error = false" type="danger" class="offset-2 col-8 text-center">
+      {{errorMsg}}
+    </ngb-alert>
+  </div>
+  <div class="row">
+    <button class="btn btn-primary mx-auto d-block" id="button_confirm" (click)="confirmChanges()">Confirmer vos changements</button>
+  </div>
+</div>
