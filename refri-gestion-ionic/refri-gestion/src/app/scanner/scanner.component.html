@@ -1,6 +1,8 @@
 <div class="container">
 
-
+  <div class="row form-group">
+    <button class="btn btn-primary mx-auto d-block" (click)="scan()">Scanner</button>
+  </div>  
   <div class="row form-group big_marge">
     <input class="offset-2 col-3 inputPadding" type="text" [(ngModel)]="productName" placeholder="Nom...">
     <input class="col-3 inputPadding" type="number" placeholder="Quantité..." step={{productMeasure.graduation}} [(ngModel)]="productQuantity">

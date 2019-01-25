@@ -25,7 +25,7 @@ import { FilterProductPipePipe } from './filter-product--pipe.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 @NgModule({
   declarations: [AppComponent, MenuComponent, FridgeComponent, LoginComponent, ScannerComponent, SettingsComponent,

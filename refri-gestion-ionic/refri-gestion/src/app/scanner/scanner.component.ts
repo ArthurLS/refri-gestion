@@ -5,6 +5,7 @@ import { DatabaseService } from '../services/database.service';
 import { AuthentificationService } from '../services/authentification.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 @Component({
   selector: 'app-scanner',
@@ -26,7 +27,8 @@ export class ScannerComponent implements OnInit {
   errorLog: string = null;
   successLog: string = null;
 
-  constructor(private authenService: AuthentificationService, private dbService : DatabaseService) { }
+  constructor(private authenService: AuthentificationService, private dbService : DatabaseService,
+    private barcodeScanner: BarcodeScanner) { }
 
   ngOnInit() {
     this.initMeasures();
@@ -75,6 +77,14 @@ export class ScannerComponent implements OnInit {
       else{
         this.errorLog="Remplir tous les champs pour ajouter un produit";
       }
+  }
+
+  scan(){
+    this.barcodeScanner.scan().then(barcodeData => {
+      console.log('Barcode data', barcodeData);
+    }).catch(err => {
+      console.log('Error', err);
+    });
   }
 
 }
