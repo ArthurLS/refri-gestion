@@ -10,8 +10,6 @@ import { DatabaseService } from './../services/database.service';
 })
 export class FridgeComponent implements OnInit {
 
-  
-
   search_item: string = "";
   food: Product;
   food1: Product;
@@ -125,7 +123,7 @@ export class FridgeComponent implements OnInit {
   }
 
   addShopList(product:Product){
-    if(product.currentQuantity <= product.alertQuantity){
+    if(product.currentQuantity <= product.alertQuantity && product.notify){
       // check is the product is already in the shopping list
       let promise = this.dbService.getShopping(product.name);
       promise.then(productDb => {

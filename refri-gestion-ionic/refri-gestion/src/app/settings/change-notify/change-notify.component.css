@@ -1,4 +1,9 @@
- /* The switch - the box around the slider */
+.card{
+  margin-top: 3px;
+  color: black !important;
+}
+
+/* The switch - the box around the slider */
  .switch {
     position: relative;
     display: inline-block;

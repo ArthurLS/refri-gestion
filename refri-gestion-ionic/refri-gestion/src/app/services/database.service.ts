@@ -9,8 +9,6 @@ import { AngularIndexedDB } from 'angular2-indexeddb';
 })
 export class DatabaseService {
 
-
-
   private db = new AngularIndexedDB('myDB', 1);
 
   constructor() {
@@ -18,6 +16,8 @@ export class DatabaseService {
     var that = this;
 
     this.db.openDatabase(1, (evt) => {
+
+      console.log("ici c'est paris");
 
       let userStore = evt.currentTarget.result.createObjectStore('user', { keyPath: "id", autoIncrement: true });
       userStore.createIndex("name", "name", { unique: false });
@@ -80,6 +80,13 @@ export class DatabaseService {
       }
     });
     return measures;
+  }
+
+  async getMeasure(name: string): Promise<Measure>{
+    let promise = this.db.getByIndex('measure', 'name', name).then((measure) => {
+      return measure;
+    })
+    return promise;
   }
 
   removeMeasure(index: number) {
