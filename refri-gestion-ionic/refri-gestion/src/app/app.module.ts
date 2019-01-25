@@ -25,27 +25,18 @@ import { FilterProductPipePipe } from './filter-product--pipe.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 @NgModule({
-  declarations: [AppComponent,
-    MenuComponent,
-    FridgeComponent, 
-    LoginComponent,
-    ScannerComponent,
-    SettingsComponent,
+  declarations: [AppComponent, MenuComponent, FridgeComponent, LoginComponent, ScannerComponent, SettingsComponent,
     ChangePasswordComponent,
     ChangeCredentialsComponent,
     ChangeNotifyComponent,
     LogupComponent,
     FilterProductPipePipe,
-    ShopListComponent,
-    ],
+    ShopListComponent],
   entryComponents: [],
-  imports: [BrowserModule, 
-    IonicModule.forRoot(), 
-    AppRoutingModule,
-    FormsModule,
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -56,6 +47,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
     AlreadyAuthGuard,
     StatusBar,
     SplashScreen,
+    BarcodeScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
