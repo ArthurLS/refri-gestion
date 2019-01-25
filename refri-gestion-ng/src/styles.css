@@ -1,3 +1,14 @@
-/* body{
-  background: #e3f2fd;
-} */
+body{
+  background: #274c77;
+  font-family: CaviarDreams;
+  color: white;
+}
+nav{
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px 5px #172941;
+}
+
+@font-face {
+  font-family: CaviarDreams;
+  src: url(./assets/font/CaviarDreams_Bold.ttf);
+}

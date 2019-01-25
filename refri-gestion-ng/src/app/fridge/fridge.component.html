@@ -11,22 +11,21 @@
 
   </div>
 
-  <div class="row col-12">
-
+  <div class="row table-row">
     <table class="table container">
       <tbody>
         <tr *ngFor="let prod of foodList | filterProductPipe:search_item" class="row" [class.green]="unsavedProd.includes(prod)" [class.red]="deletedProd.includes(prod)">
-          <td class="col-md-1 col-3">
+          <td class="col-md-1 col-2">
               <div *ngIf="prod.notify; else elseBlock" (click)="bellSwitch(prod)"><img [src]="bellon"></div>
               <ng-template #elseBlock ><img [src]="belloff" (click)="bellSwitch(prod)"></ng-template>
           </td>
 
           <td class="col-md-3 col-3" style="white-space:nowrap">
-            <div class="row">
+            <div class="row  col-12">
               {{prod.name}}
             </div>
-            <div class="row">
-              {{prod.expiryDate.getDate()}}/{{prod.expiryDate.getMonth()+1}}/{{prod.expiryDate.getFullYear()}}
+            <div class="row  col-12">
+              {{prod.expiryDate.getDate()}}/{{prod.expiryDate.getMonth()+1}}
             </div>
           </td>
 
@@ -34,7 +33,7 @@
             <input class="col-8 inputPadding" type="number" min="0" (change)="quantityChange(prod)" [(ngModel)]="prod.currentQuantity" step={{prod.measure.graduation}}>
             {{prod.measure.name}}
           </td>
-          <td class="col-md-2 col-1">
+          <td class="col-md-2 col-2">
             <button (click)="addDeleted(prod)" class="btn btn-danger">x</button>
           </td>
         </tr>

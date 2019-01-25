@@ -10,3 +10,9 @@
 .red{
   background: rgba(224, 49, 55, 0.5);
 }
+
+.table-row{
+  overflow: hidden;
+  margin-top: 5px;
+  padding-left: 3px;
+}
