@@ -5,6 +5,7 @@ import { AuthentificationService } from '../services/authentification.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { OpenFoodService } from '../services/open-food.service';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 @Component({
   selector: 'app-scanner',
@@ -22,15 +23,15 @@ export class ScannerComponent implements OnInit {
   productQuantity: number;
   productMeasure: Measure;
   productDate: string;
-  barCode: string;
   errorLog: string = null;
   successLog: string = null;
 
   constructor(
     private authenService: AuthentificationService,
     private dbService : DatabaseService,
-    private openFoodService : OpenFoodService
-     ) { }
+    private openFoodService : OpenFoodService,
+    private barcodeScanner: BarcodeScanner
+    ) { }
 
   ngOnInit() {
     this.initMeasures();
@@ -83,9 +84,9 @@ export class ScannerComponent implements OnInit {
       }
   }
 
-  scanBarCode(){
-    if(this.barCode && this.barCode.length > 7 && !isNaN(parseInt(this.barCode,10))){
-      this.openFoodService.getProduct(this.barCode).then(product =>{
+  scanBarCode(barCode: string){
+    if(barCode && barCode.length > 7 && !isNaN(parseInt(barCode,10))){
+      this.openFoodService.getProduct(barCode).then(product =>{
         this.productName = product.name;
         this.productQuantity = product.initialQuantity;
         // filter the measure to get the measure which correspond to the scan product 
@@ -107,5 +108,13 @@ export class ScannerComponent implements OnInit {
       day = "0" + day;
     }
     return date.getFullYear().toString()+'-' + month +'-' + day
+  }
+
+  scan(){
+    this.barcodeScanner.scan().then(barcodeData => {
+      this.scanBarCode(barcodeData.text);
+    }).catch(err => {
+      this.errorLog="Impossible de scanner ici";
+    });
   }
 }

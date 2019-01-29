@@ -15,9 +15,9 @@
     <table class="table container">
       <tbody>
         <tr *ngFor="let prod of foodList | filterProductPipe:search_item" class="row" [class.green]="unsavedProd.includes(prod)" [class.red]="deletedProd.includes(prod)">
-          <td class="col-md-1 col-2">
-              <div *ngIf="prod.notify; else elseBlock" (click)="bellSwitch(prod)"><img [src]="bellon"></div>
-              <ng-template #elseBlock ><img [src]="belloff" (click)="bellSwitch(prod)"></ng-template>
+          <td class="col-md-1 col-2 no-padding-right">
+              <div class="margin-left-5" *ngIf="prod.notify; else elseBlock" (click)="bellSwitch(prod)"><img [src]="bellon"></div>
+              <ng-template #elseBlock class="margin-left-5"><img [src]="belloff" (click)="bellSwitch(prod)"></ng-template>
           </td>
 
           <td class="col-md-3 col-3" style="white-space:nowrap">
