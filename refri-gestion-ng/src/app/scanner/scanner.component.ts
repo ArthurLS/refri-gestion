@@ -85,8 +85,12 @@ export class ScannerComponent implements OnInit {
   }
 
   scanBarCode(){
-    if(this.barCode && this.barCode.length > 7 && !isNaN(parseInt(this.barCode,10) ){
-      this.openFoodService.getProduct(this.barCode);
+    if(this.barCode && this.barCode.length > 7 && !isNaN(parseInt(this.barCode,10))){
+      this.openFoodService.getProduct(this.barCode).then(product =>{
+        this.productName = product.name;
+        this.productQuantity = product.initialQuantity;
+        this.productMeasure = product.measure;
+      });
     }
   }
 

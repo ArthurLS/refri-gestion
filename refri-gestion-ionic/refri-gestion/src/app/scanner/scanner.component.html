@@ -6,8 +6,9 @@
     <input class="offset-2 col-3 inputPadding" type="text" [(ngModel)]="productName" placeholder="Nom...">
     <input class="col-3 inputPadding" type="number" placeholder="Quantité..." step={{productMeasure.graduation}} [(ngModel)]="productQuantity">
     <select class="col-2 inputPadding" id="selectMeasure" [(ngModel)]="productMeasure">
-      <option *ngFor="let measure of measures" [ngValue]=measure>{{measure.name}}</option>
-    </select>
+    <option *ngFor="let measure of measures" [ngValue]=measure>{{measure.name}}</option>
+  </select>
+  <!-- ng-options="measure as measure.name for measure in measures"  -->
 
   </div>
   <div class="row form-group">

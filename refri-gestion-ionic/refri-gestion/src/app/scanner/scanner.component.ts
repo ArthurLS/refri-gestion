@@ -30,7 +30,7 @@ export class ScannerComponent implements OnInit {
     private authenService: AuthentificationService,
     private dbService : DatabaseService,
     private openFoodService : OpenFoodService
-    ) { }
+     ) { }
 
   ngOnInit() {
     this.initMeasures();
@@ -85,7 +85,14 @@ export class ScannerComponent implements OnInit {
 
   scanBarCode(){
     if(this.barCode && this.barCode.length > 7 && !isNaN(parseInt(this.barCode,10))){
-      this.openFoodService.getProduct(this.barCode);
+      this.openFoodService.getProduct(this.barCode).then(product =>{
+        this.productName = product.name;
+        this.productQuantity = product.initialQuantity;
+        // filter the measure to get the measure which correspond to the scan product 
+        this.productMeasure = this.measures.filter(measure=>{
+          return measure.name == product.measure.name;
+        })[0];
+      })
     }
   }
 

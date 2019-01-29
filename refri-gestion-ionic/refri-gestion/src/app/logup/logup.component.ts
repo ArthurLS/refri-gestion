@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthentificationService } from '../services/authentification.service';
 import { User } from '../models/User.model';
-import { DatabaseService } from '../services/database.service';
 
 /*import { pseudoRandomBytes } from 'crypto';*/
 
