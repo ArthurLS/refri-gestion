@@ -25,7 +25,6 @@ export class ScannerComponent implements OnInit {
   productQuantity: number;
   productMeasure: Measure;
   productDate: string;
-  barCode: string;
   errorLog: string = null;
   successLog: string = null;
 
@@ -85,17 +84,29 @@ export class ScannerComponent implements OnInit {
 
         this.localNotifications.schedule({
           id: 1,
-          text: 'Single ILocalNotification',
+          data: p,
+          title: 'Refri-Gestion',
+          text: 'Produit ajoutée!',
+          vibrate: true,
+          trigger: {at: p.expiryDate},
+          actions: [{id: 'add', title:'add to shopping list' }]
         });
+        // this.dbService.getShoppingAll().pus
+        // this.localNotifications.on('add', ()=>{ this.dbService.getShoppingAll().push(p) });
+        this.localNotifications.on('add')._subscribe.call(this.dbService.getShoppingAll().push(p) );
       }
       else{
         this.errorLog="Remplir tous les champs pour ajouter un produit";
       }
   }
 
-  scanBarCode(){
-    if(this.barCode && this.barCode.length > 7 && !isNaN(parseInt(this.barCode,10))){
-      this.openFoodService.getProduct(this.barCode);
+  scanBarCode(barCode: string){
+    if(barCode && barCode.length > 7 && !isNaN(parseInt(barCode,10))){
+      this.openFoodService.getProduct(barCode).then(product => {
+        this.productName = product.name;
+        this.productQuantity = product.initialQuantity;
+        //AJOUTER LA MEASURE
+      });
     }
   }
 
@@ -110,5 +121,13 @@ export class ScannerComponent implements OnInit {
       day = "0" + day;
     }
     return date.getFullYear().toString()+'-' + month +'-' + day
+  }
+
+  scan(){
+    this.barcodeScanner.scan().then(barcodeData => {
+      this.scanBarCode(barcodeData.text);
+    }).catch(err => {
+      this.errorLog="Impossible de scanner ici";
+    });
   }
 }

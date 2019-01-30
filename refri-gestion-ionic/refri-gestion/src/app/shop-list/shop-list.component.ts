@@ -67,6 +67,8 @@ export class ShopListComponent implements OnInit {
     console.log(this.shopList);
   }
 
+  
+
   quantityChange(product: Product){
     let isThere = false;
     this.changedProducts.forEach(prod => {
