@@ -84,16 +84,11 @@ export class ScannerComponent implements OnInit {
 
         this.localNotifications.schedule({
           id: 1,
-          data: p,
           title: 'Refri-Gestion',
-          text: 'Produit ajoutée!',
+          text: 'Un produit approche sa date de péromption',
           vibrate: true,
           trigger: {at: p.expiryDate},
-          actions: [{id: 'add', title:'add to shopping list' }]
         });
-        // this.dbService.getShoppingAll().pus
-        // this.localNotifications.on('add', ()=>{ this.dbService.getShoppingAll().push(p) });
-        this.localNotifications.on('add')._subscribe.call(this.dbService.getShoppingAll().push(p) );
       }
       else{
         this.errorLog="Remplir tous les champs pour ajouter un produit";
