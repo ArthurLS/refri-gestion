@@ -102,11 +102,14 @@ export class ScannerComponent implements OnInit {
 
   scanBarCode(barCode: string){
     if(barCode && barCode.length > 7 && !isNaN(parseInt(barCode,10))){
-      this.openFoodService.getProduct(barCode).then(product => {
+      this.openFoodService.getProduct(barCode).then(product =>{
         this.productName = product.name;
         this.productQuantity = product.initialQuantity;
-        //AJOUTER LA MEASURE
-      });
+        // filter the measure to get the measure which correspond to the scan product 
+        this.productMeasure = this.measures.filter(measure=>{
+          return measure.name == product.measure.name;
+        })[0];
+      })
     }
   }
 

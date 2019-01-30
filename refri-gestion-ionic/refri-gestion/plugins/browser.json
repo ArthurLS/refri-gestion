@@ -7,10 +7,6 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-plugin-local-notification": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
-    "cordova-plugin-whitelist": {
     "cordova-plugin-device": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
@@ -18,7 +14,6 @@
       "PACKAGE_NAME": "io.ionic.starter"
     },
     "cordova-plugin-ionic-webview": {
-      "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+",
       "PACKAGE_NAME": "io.ionic.starter"
     },
     "cordova-plugin-splashscreen": {
@@ -31,7 +26,6 @@
       "PACKAGE_NAME": "io.ionic.starter"
     },
     "phonegap-plugin-barcodescanner": {
-      "ANDROID_SUPPORT_V4_VERSION": "27.+",
       "PACKAGE_NAME": "io.ionic.starter"
     }
   },

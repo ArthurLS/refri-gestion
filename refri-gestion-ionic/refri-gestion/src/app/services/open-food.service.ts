@@ -39,7 +39,6 @@ export class OpenFoodService {
       }
       return prod;
     }));
-    console.log('product', product);
     return product;
   }
 
@@ -60,6 +59,10 @@ export class OpenFoodService {
       }
       case 'cl': {
         measureUnity = 'mL';
+        break;
+      }
+      case 'g': {
+        measureUnity = 'g';
         break;
       }
       case 'kg': {
