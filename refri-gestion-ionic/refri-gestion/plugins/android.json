@@ -10,9 +10,8 @@
     "cordova-plugin-local-notification": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
-    "cordova-plugin-whitelist": {
     "cordova-plugin-device": {
-      "PACKAGE_NAME": "io.ionic.starter"
+    "PACKAGE_NAME": "io.ionic.starter"
     },
     "cordova-plugin-ionic-keyboard": {
       "PACKAGE_NAME": "io.ionic.starter"
